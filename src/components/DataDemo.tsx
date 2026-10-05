@@ -26,7 +26,7 @@ interface Rec {
   py: number;
 }
 
-const SIGNAL = '36, 64, 216';
+const SIGNAL = '0, 122, 204';
 const FONT = '8px "JetBrains Mono", monospace';
 
 export default function DataDemo({ className }: { className?: string }) {
@@ -101,7 +101,7 @@ export default function DataDemo({ className }: { className?: string }) {
       ctx.clearRect(0, 0, width, height);
 
       // tracks
-      ctx.strokeStyle = 'rgba(22, 22, 22, 0.14)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.10)';
       ctx.lineWidth = 1;
       const topY = stages[0].y;
       const botY = stages[4].y;
@@ -113,7 +113,7 @@ export default function DataDemo({ className }: { className?: string }) {
       ctx.stroke();
 
       // a sheet of rows on the far left
-      ctx.fillStyle = 'rgba(22, 22, 22, 0.4)';
+      ctx.fillStyle = 'rgba(212, 212, 212, 0.45)';
       for (let i = 0; i < 3; i++) {
         ctx.fillRect(4, topY - 14 + i * 5, 12, 2.5);
       }
@@ -122,12 +122,12 @@ export default function DataDemo({ className }: { className?: string }) {
       ctx.font = FONT;
       ctx.textAlign = 'center';
       for (const s of stages) {
-        ctx.strokeStyle = 'rgba(22, 22, 22, 0.3)';
+        ctx.strokeStyle = 'rgba(212, 212, 212, 0.35)';
         ctx.beginPath();
         ctx.moveTo(s.x, s.y - 4);
         ctx.lineTo(s.x, s.y + 4);
         ctx.stroke();
-        ctx.fillStyle = '#6b6860';
+        ctx.fillStyle = '#9d9d9d';
         ctx.fillText(s.label, s.x, s.y - 10);
       }
 
@@ -135,13 +135,13 @@ export default function DataDemo({ className }: { className?: string }) {
       for (const r of records) {
         const pos = recordPos(r);
         if (r.dropping) {
-          ctx.fillStyle = 'rgba(22, 22, 22, 0.35)';
+          ctx.fillStyle = 'rgba(212, 212, 212, 0.3)';
         } else {
           ctx.fillStyle = `rgba(${SIGNAL}, 0.85)`;
         }
         // short trail
         ctx.strokeStyle = r.dropping
-          ? 'rgba(22, 22, 22, 0.2)'
+          ? 'rgba(212, 212, 212, 0.18)'
           : `rgba(${SIGNAL}, 0.3)`;
         ctx.lineWidth = 2;
         ctx.beginPath();

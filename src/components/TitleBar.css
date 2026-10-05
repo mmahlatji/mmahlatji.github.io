@@ -1,0 +1,105 @@
+.titlebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--titlebar-h);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--titlebar);
+  color: var(--fg-3);
+  -webkit-app-region: drag;
+}
+
+.titlebar__left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.titlebar__lights {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 0.85rem;
+}
+
+.titlebar__light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.titlebar__light--close {
+  background: #ff5f57;
+}
+.titlebar__light--min {
+  background: #febc2e;
+}
+.titlebar__light--max {
+  background: #28c840;
+}
+
+.titlebar__menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.6rem;
+  height: 100%;
+  color: var(--fg-3);
+  -webkit-app-region: no-drag;
+}
+.titlebar__menu:hover {
+  color: var(--fg);
+}
+
+.titlebar__title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.titlebar__file {
+  color: var(--fg);
+  font-family: var(--font-mono);
+}
+
+.titlebar__sep {
+  color: var(--fg-5);
+}
+
+.titlebar__folder {
+  color: var(--fg-3);
+}
+
+.titlebar__app {
+  color: var(--fg-4);
+}
+
+.titlebar__right {
+  width: 120px;
+}
+
+@media (max-width: 899px) {
+  .titlebar__lights {
+    display: none;
+  }
+  .titlebar__menu {
+    display: flex;
+  }
+  .titlebar__app,
+  .titlebar__folder,
+  .titlebar__sep {
+    display: none;
+  }
+  .titlebar__right {
+    width: 40px;
+  }
+}

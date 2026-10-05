@@ -1,0 +1,133 @@
+.workbench {
+  min-height: 100svh;
+}
+
+/* ---------- editor area (scrolls) ---------- */
+.editor {
+  margin-left: calc(var(--activitybar-w) + var(--sidebar-w));
+  padding-top: var(--titlebar-h);
+}
+
+.workbench.sidebar-closed .editor {
+  margin-left: var(--activitybar-w);
+}
+
+/* ---------- tab bar + breadcrumbs ---------- */
+.editor__tabs {
+  position: sticky;
+  top: var(--titlebar-h);
+  z-index: 30;
+  display: flex;
+  align-items: stretch;
+  height: var(--tabs-h);
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+
+.editor__tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.9rem;
+  background: var(--bg);
+  border-top: 1px solid var(--accent);
+  border-right: 1px solid var(--line);
+  font-size: 0.82rem;
+}
+
+.editor__tab-icon {
+  display: grid;
+  place-items: center;
+  color: var(--accent-bright);
+}
+
+.editor__tab-name {
+  color: var(--fg);
+  font-size: 0.8rem;
+}
+
+.editor__tab-close {
+  display: grid;
+  place-items: center;
+  margin-left: 0.35rem;
+  border-radius: 3px;
+  color: var(--fg-4);
+  opacity: 0;
+  transition: background 0.15s var(--ease), color 0.15s var(--ease), opacity 0.15s var(--ease);
+}
+.editor__tab:hover .editor__tab-close,
+.editor__tab-close:focus-visible {
+  opacity: 1;
+}
+.editor__tab-close:hover {
+  background: var(--hover);
+  color: var(--fg);
+}
+
+.editor__tabs-spacer {
+  flex: 1;
+}
+
+.editor__crumbs {
+  position: sticky;
+  top: calc(var(--titlebar-h) + var(--tabs-h));
+  z-index: 29;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  height: var(--crumbs-h);
+  padding: 0 1rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.72rem;
+  color: var(--fg-3);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.editor__crumb-sep {
+  color: var(--fg-5);
+  user-select: none;
+}
+
+.editor__crumb-current {
+  color: var(--fg-2);
+}
+
+.editor__content {
+  padding-bottom: calc(var(--statusbar-h) + 0px);
+}
+
+/* ---------- mobile scrim ---------- */
+.workbench__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s var(--ease);
+}
+.workbench__scrim.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 899px) {
+  .editor,
+  .workbench.sidebar-closed .editor {
+    margin-left: 0;
+  }
+  .workbench__scrim {
+    display: block;
+  }
+  .editor__crumbs {
+    display: none;
+  }
+  .editor__tab-close {
+    opacity: 1;
+  }
+  .editor__tab {
+    padding-right: 0.6rem;
+  }
+}

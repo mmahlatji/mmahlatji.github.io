@@ -1,4 +1,9 @@
-import type { ExperienceItem } from '../components/Timeline';
+export interface ExperienceItem {
+  period: string;
+  role: string;
+  company: string;
+  description: string;
+}
 
 export const experience: ExperienceItem[] = [
   {

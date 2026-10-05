@@ -26,7 +26,8 @@ export default function RayDemo({ className }: { className?: string }) {
     let circles: { x: number; y: number; r: number }[] = [];
 
     const RAYS = 260;
-    const SIGNAL = '36, 64, 216';
+    const SIGNAL = '0, 122, 204';
+    const OCCLUDER = '#d4d4d4';
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -95,7 +96,7 @@ export default function RayDemo({ className }: { className?: string }) {
 
       // obstacles (occluders)
       for (const c of circles) {
-        ctx.fillStyle = '#161616';
+        ctx.fillStyle = OCCLUDER;
         ctx.beginPath();
         ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
         ctx.fill();

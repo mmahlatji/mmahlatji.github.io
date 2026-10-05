@@ -1,0 +1,56 @@
+.statusbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--statusbar-h);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--statusbar);
+  color: #ffffff;
+  font-size: 0.72rem;
+}
+
+.statusbar__group {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.statusbar__item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  height: 100%;
+  padding: 0 0.55rem;
+  transition: background 0.12s var(--ease);
+}
+.statusbar__item:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.statusbar__live {
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+}
+
+.statusbar__live .live__dot {
+  background: #ffffff;
+}
+.statusbar__live .live__dot::after {
+  border-color: #ffffff;
+}
+
+@media (max-width: 899px) {
+  .statusbar__item {
+    padding: 0 0.35rem;
+  }
+  .statusbar__live span:last-child,
+  .statusbar__item:nth-child(4),
+  .statusbar__group--right .statusbar__item:nth-last-child(-n + 2) {
+    display: none;
+  }
+}

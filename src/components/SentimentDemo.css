@@ -1,0 +1,40 @@
+.sentiment-term {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1.55;
+  color: var(--fg-3);
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.sentiment-term__line {
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sentiment-term__line--cmd {
+  color: var(--tok-fn);
+}
+
+.sentiment-term__line--out {
+  color: var(--fg-3);
+}
+
+.sentiment-term__line--pos {
+  color: #6a9955;
+}
+
+.sentiment-term__line--neg {
+  color: #f48771;
+}
+
+.sentiment-term .caret {
+  height: 1em;
+  vertical-align: -0.15em;
+}

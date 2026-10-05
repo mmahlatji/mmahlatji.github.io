@@ -25,8 +25,8 @@ interface Particle {
   hy: number;
 }
 
-const INK = '22, 22, 22';
-const SIGNAL = '36, 64, 216';
+const INK = '212, 212, 212';
+const SIGNAL = '0, 122, 204';
 
 export default function SimField({
   mode = 'ink',

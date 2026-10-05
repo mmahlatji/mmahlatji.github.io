@@ -1,0 +1,44 @@
+.server-term {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1.55;
+  color: var(--fg-3);
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.server-term__line {
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.server-term__line--cmd {
+  color: var(--tok-fn);
+}
+
+.server-term__line--info {
+  color: var(--fg-3);
+}
+
+.server-term__line--req {
+  color: var(--tok-var);
+}
+
+.server-term__line--res {
+  color: #6a9955;
+}
+
+.server-term__line--dim {
+  color: var(--fg-5);
+}
+
+.server-term .caret {
+  height: 1em;
+  vertical-align: -0.15em;
+}

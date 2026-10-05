@@ -1,68 +1,84 @@
 import SimField from './SimField';
 import RayDemo from './RayDemo';
 import DataDemo from './DataDemo';
+import SentimentDemo from './SentimentDemo';
+import HttpServerDemo from './HttpServerDemo';
+import BenchDemo from './BenchDemo';
+import { FileIcon, ArrowUpRightIcon } from './icons';
 import './ProjectCard.css';
 
 export interface Project {
+  slug: string;
   title: string;
   description: string;
   tags: string[];
   link?: string;
-  demo?: 'fluid' | 'rays' | 'data';
+  demo?: 'fluid' | 'rays' | 'data' | 'sentiment' | 'server' | 'bench';
 }
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
 }
 
-export default function ProjectCard({ project, index }: ProjectCardProps) {
-  const { title, description, tags, link, demo } = project;
+export default function ProjectCard({ project }: ProjectCardProps) {
+  const { slug, title, description, tags, link, demo } = project;
 
-  const demoEl = demo ? (
-    <div className="card__demo" aria-hidden="true">
-      {demo === 'fluid' && <SimField mode="fluid" density={18} background="#f2f1eb" className="card__canvas" />}
-      {demo === 'rays' && <RayDemo className="card__canvas" />}
-      {demo === 'data' && <DataDemo className="card__canvas" />}
-      {demo === 'rays' && (
-        <span className="card__demo-label mono">drag the light</span>
-      )}
-    </div>
-  ) : null;
-
-  const inner = (
-    <>
-      {demoEl}
-      <div className="card__body">
-        <div className="card__head">
-          <span className="card__index mono">{(index + 1).toString().padStart(2, '0')}</span>
+  return (
+    <article id={`project-${slug}`} className="project">
+      <div className="project__head">
+        <span className="project__file mono">
+          <FileIcon />
+          {slug}.ts
+        </span>
+        <span className={`project__status mono${link ? '' : ' is-private'}`}>
           {link ? (
-            <span className="card__status mono">
-              <span className="card__status-dot" aria-hidden="true" />
+            <>
+              <span className="project__status-dot" aria-hidden="true" />
               live
-            </span>
+            </>
           ) : (
-            <span className="card__status card__status--private mono">private</span>
+            'private'
           )}
+        </span>
+      </div>
+
+      {demo && (
+        <div className="project__preview">
+          {demo === 'fluid' && (
+            <SimField mode="fluid" density={18} background="#1e1e1e" className="project__canvas" ariaLabel={`${title} — live fluid simulation`} />
+          )}
+          {demo === 'rays' && <RayDemo className="project__canvas" />}
+          {demo === 'data' && <DataDemo className="project__canvas" />}
+          {demo === 'sentiment' && <SentimentDemo />}
+          {demo === 'server' && <HttpServerDemo />}
+          {demo === 'bench' && <BenchDemo />}
+          <span className="project__preview-label mono">
+            {demo === 'rays' ? 'drag the light — live' : 'preview · running'}
+          </span>
         </div>
-        <h3 className="card__title">{title}</h3>
-        <p className="card__desc">{description}</p>
-        <ul className="card__tags">
+      )}
+
+      <div className="project__body">
+        <h3 className="project__title">
+          <span className="project__title-mark mono" aria-hidden="true">
+            //{' '}
+          </span>
+          {title}
+        </h3>
+        <p className="project__desc">{description}</p>
+        <ul className="project__tags">
           {tags.map((t) => (
-            <li key={t}>{t}</li>
+            <li key={t} className="mono">
+              {t}
+            </li>
           ))}
         </ul>
+        {link && (
+          <a className="project__link mono" href={link} target="_blank" rel="noopener noreferrer">
+            view source <ArrowUpRightIcon />
+          </a>
+        )}
       </div>
-    </>
+    </article>
   );
-
-  if (link) {
-    return (
-      <a href={link} className="card" target="_blank" rel="noopener noreferrer">
-        {inner}
-      </a>
-    );
-  }
-
-  return <div className="card">{inner}</div>;
 }

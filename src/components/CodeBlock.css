@@ -1,0 +1,60 @@
+.codeblock {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  line-height: 1.7;
+  background: #161616;
+  border: 1px solid var(--line);
+  overflow-x: auto;
+}
+
+.codeblock__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: #1a1a1a;
+}
+
+.codeblock__filename {
+  color: var(--fg-2);
+  font-size: 0.72rem;
+}
+
+.codeblock__lang {
+  color: var(--fg-5);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.codeblock__pre {
+  padding: 0.75rem 0;
+}
+
+.codeblock__line {
+  display: flex;
+  align-items: flex-start;
+  min-height: 1.7em;
+  padding-right: 1.25rem;
+}
+
+.codeblock__line:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.codeblock__ln {
+  flex-shrink: 0;
+  width: 3.25rem;
+  padding-right: 1rem;
+  text-align: right;
+  color: var(--fg-5);
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.codeblock__code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--fg);
+}

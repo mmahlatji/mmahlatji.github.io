@@ -1,0 +1,56 @@
+.activitybar {
+  position: fixed;
+  left: 0;
+  top: var(--titlebar-h);
+  bottom: var(--statusbar-h);
+  width: var(--activitybar-w);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--activitybar);
+}
+
+.activitybar__group {
+  display: flex;
+  flex-direction: column;
+}
+
+.activitybar__item {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--activitybar-w);
+  height: var(--activitybar-w);
+  color: var(--fg-4);
+  transition: color 0.15s var(--ease);
+}
+
+.activitybar__item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 2px;
+  height: 60%;
+  background: var(--fg);
+  transition: transform 0.15s var(--ease);
+}
+
+.activitybar__item:hover {
+  color: var(--fg);
+}
+
+.activitybar__item.is-active {
+  color: var(--fg);
+}
+.activitybar__item.is-active::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+@media (max-width: 899px) {
+  .activitybar {
+    display: none;
+  }
+}
