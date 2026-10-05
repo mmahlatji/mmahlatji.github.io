@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { getAllPosts, formatDate } from '../lib/posts';
 import { usePageTitle } from '../lib/usePageTitle';
 import { FileIcon } from '../components/icons';
-import './Blog.css';
+import '../styles/Blog.css';
 
 export default function Blog() {
   usePageTitle(

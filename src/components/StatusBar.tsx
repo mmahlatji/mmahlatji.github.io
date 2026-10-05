@@ -1,5 +1,5 @@
 import { BranchIcon, SyncIcon, ErrorIcon, WarnIcon } from './icons';
-import './StatusBar.css';
+import '../styles/StatusBar.css';
 
 export default function StatusBar({ file }: { file: string }) {
   return (

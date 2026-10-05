@@ -1,5 +1,5 @@
 import { MenuIcon } from './icons';
-import './TitleBar.css';
+import '../styles/TitleBar.css';
 
 interface TitleBarProps {
   file: string;

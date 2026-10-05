@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import './Section.css';
+import '../styles/Section.css';
 
 interface SectionProps {
   id?: string;

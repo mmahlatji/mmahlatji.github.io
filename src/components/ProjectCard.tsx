@@ -6,7 +6,7 @@ import HttpServerDemo from './HttpServerDemo';
 import BenchDemo from './BenchDemo';
 import { FileIcon, ArrowUpRightIcon } from './icons';
 import type { Project } from '../data/projects';
-import './ProjectCard.css';
+import '../styles/ProjectCard.css';
 
 interface ProjectCardProps {
   project: Project;

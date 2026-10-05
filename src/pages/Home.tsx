@@ -8,7 +8,7 @@ import { projects } from '../data/projects';
 import { experience, education, details, tools } from '../data/experience';
 import { usePageTitle } from '../lib/usePageTitle';
 import { highlight } from '../lib/highlight';
-import './Home.css';
+import '../styles/Home.css';
 
 const esc = (s: string) => s.replace(/"/g, '\\"');
 

@@ -7,7 +7,7 @@ import Sidebar from './Sidebar';
 import StatusBar from './StatusBar';
 import { CloseIcon, FileIcon, FolderIcon } from './icons';
 import { useActiveSection, fileForLocation } from '../lib/sections';
-import './Workbench.css';
+import '../styles/Workbench.css';
 
 export default function Workbench({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(() =>

@@ -6,7 +6,7 @@ import {
   RunIcon,
   ExtensionsIcon,
 } from './icons';
-import './ActivityBar.css';
+import '../styles/ActivityBar.css';
 
 interface ActivityBarProps {
   explorerActive: boolean;

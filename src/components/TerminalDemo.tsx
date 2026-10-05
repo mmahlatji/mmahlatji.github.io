@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import './TerminalDemo.css';
+import '../styles/TerminalDemo.css';
 
 export type TermKind =
   | 'cmd'

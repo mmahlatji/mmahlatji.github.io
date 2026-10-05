@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import './CodeBlock.css';
+import '../styles/CodeBlock.css';
 
 interface CodeBlockProps {
   lines: ReactNode[];

@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ChevronIcon, FolderIcon, FileIcon, CloseIcon } from './icons';
 import type { ActiveFile } from '../lib/sections';
 import { projects } from '../data/projects';
-import './Sidebar.css';
+import '../styles/Sidebar.css';
 
 type Entry =
   | { kind: 'folder'; label: string; section?: string; children: Entry[] }

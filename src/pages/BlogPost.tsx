@@ -3,7 +3,7 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { getPost, formatDate } from '../lib/posts';
 import { usePageTitle } from '../lib/usePageTitle';
-import './BlogPost.css';
+import '../styles/BlogPost.css';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
