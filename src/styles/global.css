@@ -1,0 +1,382 @@
+/* ============================================================
+   Moleboheng Mahlatji — global styles
+   "The Field": a live simulation ground.
+   Warm-neutral paper, ink marks, one cobalt signal for what's live.
+   ============================================================ */
+
+:root {
+  /* field — the ground the simulation runs on */
+  --field: #f2f1eb;
+  --field-raised: #faf9f5;
+  --field-deep: #e7e5dc;
+
+  /* ink — the marks */
+  --ink: #161616;
+  --ink-2: #54514a;
+  --ink-3: #6b6860;
+
+  /* signal — the single live accent */
+  --signal: #2440d8;
+  --signal-strong: #1a2fb0;
+  --signal-soft: rgba(36, 64, 216, 0.12);
+
+  /* hairlines */
+  --line: rgba(22, 22, 22, 0.12);
+  --line-strong: rgba(22, 22, 22, 0.26);
+
+  /* type */
+  --font-display: 'Archivo', system-ui, sans-serif;
+  --font-body: 'Archivo', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* metrics */
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --maxw: 1200px;
+  --radius: 3px;
+  --radius-sm: 2px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --shadow-soft: 0 1px 2px rgba(22, 22, 22, 0.05), 0 10px 30px rgba(22, 22, 22, 0.07);
+  --shadow-hover: 0 2px 6px rgba(22, 22, 22, 0.06), 0 22px 50px rgba(22, 22, 22, 0.1);
+}
+
+/* ---------- reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--field);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* ---------- browser surfaces are part of the design ---------- */
+::selection {
+  background: var(--signal);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+html {
+  scrollbar-color: var(--line-strong) var(--field);
+}
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--field);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border: 3px solid var(--field);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-3);
+}
+
+/* ---------- layout helpers ---------- */
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(4rem, 8vw, 7rem);
+  position: relative;
+}
+
+/* ---------- type ---------- */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.display {
+  font-size: clamp(2.75rem, 9vw, 8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+
+/* the mono "instrument" voice — for meta, data, code, labels */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- live indicator ---------- */
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.live__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--signal);
+}
+
+.live__dot::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid var(--signal);
+  opacity: 0;
+  animation: live-pulse 2.2s var(--ease-out) infinite;
+}
+
+@keyframes live-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* ---------- links ---------- */
+.link-underline {
+  position: relative;
+  background-image: linear-gradient(var(--ink), var(--ink));
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  transition: background-size 0.3s var(--ease);
+  padding-bottom: 2px;
+}
+
+.link-underline:hover,
+a:hover > .link-underline {
+  background-size: 100% 1px;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.4rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--field);
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+.btn:hover {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.btn--ghost:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--field);
+}
+
+/* ---------- prose (blog) ---------- */
+.prose {
+  max-width: 42rem;
+  font-size: 1.06rem;
+  line-height: 1.8;
+  color: var(--ink-2);
+}
+
+.prose p {
+  margin-bottom: 1.5rem;
+}
+
+.prose h2 {
+  font-size: 1.7rem;
+  margin: 3rem 0 1rem;
+}
+
+.prose h3 {
+  font-size: 1.3rem;
+  margin: 2.25rem 0 0.75rem;
+}
+
+.prose a {
+  color: var(--signal);
+  text-decoration: underline;
+  text-decoration-color: var(--signal-soft);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.3s var(--ease);
+}
+
+.prose a:hover {
+  text-decoration-color: var(--signal);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose blockquote {
+  border-left: 2px solid var(--signal);
+  padding-left: 1.25rem;
+  margin: 2rem 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--field-deep);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.15em 0.4em;
+  color: var(--ink);
+}
+
+.prose pre {
+  background: var(--ink);
+  color: var(--field-raised);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.prose pre code {
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 2.5rem 0;
+}
+
+/* ---------- motion respect ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .live__dot::after {
+    animation: none;
+    opacity: 0;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

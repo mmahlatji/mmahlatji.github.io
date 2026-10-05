@@ -1,0 +1,122 @@
+.blog {
+  padding-top: 9rem;
+  padding-bottom: 6rem;
+  min-height: 100svh;
+}
+
+.blog__head {
+  margin-bottom: clamp(3rem, 7vw, 5rem);
+}
+
+.blog__meta {
+  color: var(--ink-3);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+}
+
+.blog__title {
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  margin-top: 1rem;
+}
+
+.blog__intro {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+  color: var(--ink-2);
+  font-size: 1.1rem;
+}
+
+.blog__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.post {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'date arrow'
+    'title arrow'
+    'desc arrow'
+    'tags arrow';
+  gap: 0.6rem 2rem;
+  padding: 2.25rem 0;
+  border-top: 1px solid var(--line);
+  transition: transform 0.3s var(--ease);
+}
+
+.blog__list li:last-child .post {
+  border-bottom: 1px solid var(--line);
+}
+
+.post:hover {
+  transform: translateX(1.25rem);
+}
+
+.post__date {
+  grid-area: date;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.post__title {
+  grid-area: title;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  transition: color 0.25s var(--ease);
+}
+
+.post:hover .post__title {
+  color: var(--signal);
+}
+
+.post__desc {
+  grid-area: desc;
+  color: var(--ink-2);
+  max-width: 42rem;
+}
+
+.post__tags {
+  grid-area: tags;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.post__tags li {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-2);
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.post__arrow {
+  grid-area: arrow;
+  align-self: center;
+  font-size: 1.4rem;
+  color: var(--ink-3);
+  transition:
+    transform 0.3s var(--ease),
+    color 0.25s var(--ease);
+}
+
+.post:hover .post__arrow {
+  transform: translateX(6px);
+  color: var(--signal);
+}
+
+.blog__empty {
+  color: var(--ink-2);
+  padding: 2rem 0;
+  border-top: 1px solid var(--line);
+}
