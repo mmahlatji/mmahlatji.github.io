@@ -85,6 +85,60 @@
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* surface accents that don't map cleanly to the base scale */
+  --code-bg: #161616;
+  --code-bg-2: #1a1a1a;
+  --code-hover: rgba(255, 255, 255, 0.03);
+  --active-item: #37373d;
+  --preview-label-bg: rgba(30, 30, 30, 0.9);
+  --scrollbar: #424242;
+  --scrollbar-hover: #4f4f4f;
+  --inline-code-bg: rgba(255, 255, 255, 0.07);
+}
+
+:root[data-theme='light'] {
+  --bg: #ffffff;
+  --panel: #f3f3f3;
+  --panel-2: #ececec;
+  --activitybar: #ececec;
+  --titlebar: #dddddd;
+  --statusbar: #007acc;
+
+  --line: #e5e5e5;
+  --line-strong: #d0d0d0;
+  --hover: #e8e8e8;
+
+  --fg: #1f1f1f;
+  --fg-2: #333333;
+  --fg-3: #555555;
+  --fg-4: #777777;
+  --fg-5: #8c8c8c;
+
+  --accent: #007acc;
+  --accent-bright: #005fb8;
+  --accent-soft: rgba(0, 122, 204, 0.15);
+  --selection: #add6ff;
+
+  --tok-kw: #0000ff;
+  --tok-str: #a31515;
+  --tok-num: #098658;
+  --tok-fn: #795e26;
+  --tok-type: #267f99;
+  --tok-var: #001080;
+  --tok-com: #008000;
+  --tok-const: #0070c1;
+  --tok-prop: #001080;
+  --tok-punct: #1f1f1f;
+
+  --code-bg: #fafafa;
+  --code-bg-2: #f0f0f0;
+  --code-hover: rgba(0, 0, 0, 0.04);
+  --active-item: #e4e6f1;
+  --preview-label-bg: rgba(255, 255, 255, 0.85);
+  --scrollbar: #c1c1c1;
+  --scrollbar-hover: #a8a8a8;
+  --inline-code-bg: rgba(0, 0, 0, 0.06);
 }
 
 /* ---------- reset ---------- */
@@ -142,7 +196,7 @@ ol {
 /* ---------- browser surfaces are part of the design ---------- */
 ::selection {
   background: var(--selection);
-  color: #ffffff;
+  color: var(--fg);
 }
 
 :focus-visible {
@@ -152,7 +206,14 @@ ol {
 
 html {
   caret-color: var(--accent);
-  scrollbar-color: #424242 var(--bg);
+  scrollbar-color: var(--scrollbar) var(--bg);
+  color-scheme: light dark;
+}
+html[data-theme='light'] {
+  color-scheme: light;
+}
+html[data-theme='dark'] {
+  color-scheme: dark;
 }
 ::-webkit-scrollbar {
   width: 14px;
@@ -162,11 +223,11 @@ html {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #424242;
+  background: var(--scrollbar);
   border: 3px solid var(--bg);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #4f4f4f;
+  background: var(--scrollbar-hover);
 }
 
 /* ---------- layout helpers ---------- */
@@ -298,14 +359,14 @@ a.inline-link:hover {
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.84em;
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--inline-code-bg);
   border: 1px solid var(--line);
   padding: 0.1em 0.4em;
   color: var(--fg-2);
 }
 
 .prose pre {
-  background: #161616;
+  background: var(--code-bg);
   border: 1px solid var(--line);
   padding: 1rem 1.1rem;
   overflow-x: auto;

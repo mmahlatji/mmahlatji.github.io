@@ -2,7 +2,7 @@
   font-family: var(--font-mono);
   font-size: 0.84rem;
   line-height: 1.7;
-  background: #161616;
+  background: var(--code-bg);
   border: 1px solid var(--line);
   overflow-x: auto;
 }
@@ -13,7 +13,7 @@
   justify-content: space-between;
   padding: 0.5rem 1rem;
   border-bottom: 1px solid var(--line);
-  background: #1a1a1a;
+  background: var(--code-bg-2);
 }
 
 .codeblock__filename {
@@ -40,7 +40,7 @@
 }
 
 .codeblock__line:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--code-hover);
 }
 
 .codeblock__ln {

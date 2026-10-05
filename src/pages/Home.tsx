@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { ReactNode } from 'react';
 import Section from '../components/Section';
 import ProjectCard from '../components/ProjectCard';
@@ -160,6 +161,17 @@ export default function Home() {
     'Final-year BSc Computer Science & Applied Statistics student at the University of Cape Town, and Computer Science tutor.'
   );
 
+  const [copied, setCopied] = useState(false);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('molebohengmahlatji@gmail.com');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard may be unavailable (e.g. non-HTTPS); do nothing.
+    }
+  };
+
   return (
     <>
       {/* ============ HERO ============ */}
@@ -302,7 +314,12 @@ export default function Home() {
             <div className="terminal__body">
               <p className="terminal__line">
                 <span className="terminal__prompt mono">➜ ~</span>
-                <span>git clone github.com/mmahlatji</span>
+                <span>
+                  git clone{' '}
+                  <a href="https://github.com/mmahlatji" target="_blank" rel="noopener noreferrer" className="terminal__mail">
+                    github.com/mmahlatji
+                  </a>
+                </span>
               </p>
               <p className="terminal__line">
                 <span className="terminal__prompt mono">➜ ~</span>
@@ -316,9 +333,13 @@ export default function Home() {
                 <span className="terminal__prompt mono">➜ ~</span>
                 <span>
                   mail{' '}
-                  <a href="mailto:molebohengmahlatji@gmail.com" className="terminal__mail">
-                    molebohengmahlatji@gmail.com
-                  </a>
+                  <button
+                    type="button"
+                    className="terminal__mail terminal__mail-btn"
+                    onClick={copyEmail}
+                  >
+                    {copied ? 'copied ✓' : 'copy molebohengmahlatji@gmail.com'}
+                  </button>
                 </span>
                 <span className="caret" aria-hidden="true" />
               </p>

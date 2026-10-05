@@ -5,7 +5,6 @@ import {
   SourceControlIcon,
   RunIcon,
   ExtensionsIcon,
-  GearIcon,
 } from './icons';
 import './ActivityBar.css';
 
@@ -49,12 +48,6 @@ export default function ActivityBar({ explorerActive, onToggleExplorer }: Activi
         <Link className="activitybar__item" to="/blog" aria-label="Extensions" title="Extensions">
           <ExtensionsIcon />
         </Link>
-      </div>
-
-      <div className="activitybar__group">
-        <a className="activitybar__item" href="/#about" aria-label="Manage" title="Manage">
-          <GearIcon />
-        </a>
       </div>
     </nav>
   );

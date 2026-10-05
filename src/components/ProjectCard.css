@@ -75,7 +75,7 @@
   left: 0.7rem;
   bottom: 0.55rem;
   padding: 0.22rem 0.55rem;
-  background: rgba(30, 30, 30, 0.9);
+  background: var(--preview-label-bg);
   border: 1px solid var(--line);
   color: var(--fg-4);
   font-size: 0.6rem;

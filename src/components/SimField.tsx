@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useTheme } from '../lib/theme';
 
 interface SimFieldProps {
   /** particles per 10_000 px^2 of canvas area */
@@ -26,6 +27,8 @@ export default function SimField({
   ariaLabel,
 }: SimFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { theme } = useTheme();
+  const bg = background ?? (theme === 'dark' ? '#1e1e1e' : '#ffffff');
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -73,8 +76,8 @@ export default function SimField({
           r: 5 + Math.random() * 7,
         };
       });
-      if (background) {
-        ctx.fillStyle = background;
+      if (bg) {
+        ctx.fillStyle = bg;
         ctx.fillRect(0, 0, width, height);
       }
     };
@@ -112,8 +115,8 @@ export default function SimField({
       if (!running) return;
       t += 0.016;
 
-      if (background) {
-        ctx.fillStyle = background;
+      if (bg) {
+        ctx.fillStyle = bg;
         ctx.globalAlpha = 0.22;
         ctx.fillRect(0, 0, width, height);
         ctx.globalAlpha = 1;
@@ -151,8 +154,8 @@ export default function SimField({
     };
 
     const drawStatic = () => {
-      if (background) {
-        ctx.fillStyle = background;
+      if (bg) {
+        ctx.fillStyle = bg;
         ctx.fillRect(0, 0, width, height);
       } else {
         ctx.clearRect(0, 0, width, height);
@@ -207,7 +210,7 @@ export default function SimField({
       ro.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [density, background]);
+  }, [density, bg]);
 
   return (
     <canvas

@@ -92,7 +92,7 @@
 
 .tree__folder.is-active,
 .tree__file.is-active {
-  background: #37373d;
+  background: var(--active-item);
   color: var(--fg);
 }
 

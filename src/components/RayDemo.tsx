@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useTheme } from '../lib/theme';
 
 /**
  * A live 2D ray tracer: a draggable light source casts rays that
@@ -7,6 +8,7 @@ import { useEffect, useRef } from 'react';
  */
 export default function RayDemo({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -27,7 +29,7 @@ export default function RayDemo({ className }: { className?: string }) {
 
     const RAYS = 260;
     const SIGNAL = '0, 122, 204';
-    const OCCLUDER = '#d4d4d4';
+    const OCCLUDER = theme === 'dark' ? '#d4d4d4' : '#3f3f3f';
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -174,7 +176,7 @@ export default function RayDemo({ className }: { className?: string }) {
       canvas.removeEventListener('pointerdown', onDown);
       canvas.removeEventListener('pointermove', onMove);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <canvas

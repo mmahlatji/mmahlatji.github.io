@@ -84,7 +84,24 @@
 }
 
 .titlebar__right {
+  display: flex;
+  align-items: center;
+  height: 100%;
   width: 120px;
+  justify-content: flex-end;
+}
+
+.titlebar__theme {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 100%;
+  color: var(--fg-3);
+  -webkit-app-region: no-drag;
+  transition: color 0.12s var(--ease);
+}
+.titlebar__theme:hover {
+  color: var(--fg);
 }
 
 @media (max-width: 899px) {
