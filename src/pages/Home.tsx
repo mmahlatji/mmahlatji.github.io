@@ -115,8 +115,7 @@ export default function Home() {
           </h1>
           <p className="hero__sub">
             Final-year BSc Computer Science &amp; Applied Statistics student at
-            the University of Cape Town, and a Computer Science tutor. I write
-            software that is quiet, fast, and clear.
+            the University of Cape Town, and a Computer Science tutor.
           </p>
 
           <div className="hero__decl mono">
