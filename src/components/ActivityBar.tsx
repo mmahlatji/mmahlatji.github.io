@@ -21,12 +21,12 @@ export default function ActivityBar({ explorerActive, onToggleExplorer }: Activi
           className={`activitybar__item${explorerActive ? ' is-active' : ''}`}
           onClick={onToggleExplorer}
           aria-label="Explorer"
-          title="Explorer (Ctrl+Shift+E)"
+          title="Explorer"
         >
           <FilesIcon />
         </button>
 
-        <a className="activitybar__item" href="/#contact" aria-label="Search" title="Search">
+        <a className="activitybar__item" href="/#contact" aria-label="Contact" title="Contact">
           <SearchIcon />
         </a>
 
@@ -35,17 +35,17 @@ export default function ActivityBar({ explorerActive, onToggleExplorer }: Activi
           href="https://github.com/mmahlatji"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Source Control"
-          title="Source Control"
+          aria-label="GitHub"
+          title="GitHub"
         >
           <SourceControlIcon />
         </a>
 
-        <a className="activitybar__item" href="/#projects" aria-label="Run and Debug" title="Run and Debug">
+        <a className="activitybar__item" href="/#projects" aria-label="Projects" title="Projects">
           <RunIcon />
         </a>
 
-        <Link className="activitybar__item" to="/blog" aria-label="Extensions" title="Extensions">
+        <Link className="activitybar__item" to="/blog" aria-label="Notes" title="Notes">
           <ExtensionsIcon />
         </Link>
       </div>

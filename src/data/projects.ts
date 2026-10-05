@@ -1,4 +1,17 @@
-import type { Project } from '../components/ProjectCard';
+export type FileKind = 'md' | 'ts' | 'tsx' | 'py' | 'java';
+
+export interface Project {
+  slug: string;
+  title: string;
+  description: string;
+  tags: string[];
+  link?: string;
+  demo?: 'fluid' | 'rays' | 'data' | 'sentiment' | 'server' | 'bench';
+  /** display filename shown in the sidebar tree and editor chrome */
+  file: string;
+  /** file type for icon coloring + language label */
+  kind: FileKind;
+}
 
 export const projects: Project[] = [
   {
@@ -9,6 +22,8 @@ export const projects: Project[] = [
     tags: ['Java', 'Swing', 'Fluid Sim', 'Physics'],
     link: 'https://github.com/mmahlatji/flip-water-simulator',
     demo: 'fluid',
+    file: 'flip-water.ts',
+    kind: 'ts',
   },
   {
     slug: 'ray-tracer',
@@ -18,6 +33,8 @@ export const projects: Project[] = [
     tags: ['Java', 'Swing', 'Ray Tracing', 'Graphics'],
     link: 'https://github.com/mmahlatji/2D-Raytracer',
     demo: 'rays',
+    file: 'ray-tracer.ts',
+    kind: 'ts',
   },
   {
     slug: 'admit',
@@ -26,6 +43,8 @@ export const projects: Project[] = [
       'A team capstone: a postgraduate admissions platform for UCT\'s CS honours intake. Reconciles multi-source spreadsheet imports, applies configurable rules with a live preview, and manages the applicant lifecycle — plus a local-LLM "Ask" query feature.',
     tags: ['FastAPI', 'React', 'PostgreSQL', 'Supabase'],
     demo: 'data',
+    file: 'admit.ts',
+    kind: 'ts',
   },
   {
     slug: 'sentiment',
@@ -35,6 +54,8 @@ export const projects: Project[] = [
     tags: ['Python', 'FinBERT', 'Transformers', 'Selenium', 'pandas'],
     link: 'https://github.com/mmahlatji/HeadlineAnalyzer',
     demo: 'sentiment',
+    file: 'sentiment.py',
+    kind: 'py',
   },
   {
     slug: 'http-server',
@@ -44,6 +65,8 @@ export const projects: Project[] = [
     tags: ['Java', 'HTTP', 'Sockets', 'Jackson', 'SLF4J'],
     link: 'https://github.com/mmahlatji/HTTP-Server',
     demo: 'server',
+    file: 'httpserver.java',
+    kind: 'java',
   },
   {
     slug: 'manybench',
@@ -53,5 +76,7 @@ export const projects: Project[] = [
     tags: ['Python', 'Typer', 'JMH', 'Java', 'CLI'],
     link: 'https://github.com/mmahlatji/manybench',
     demo: 'bench',
+    file: 'manybench.py',
+    kind: 'py',
   },
 ];

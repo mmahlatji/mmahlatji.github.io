@@ -1,4 +1,4 @@
-.server-term {
+.terminal-demo {
   position: absolute;
   inset: 0;
   display: flex;
@@ -12,33 +12,43 @@
   overflow: hidden;
 }
 
-.server-term__line {
+.terminal-demo__line {
   white-space: pre;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.server-term__line--cmd {
+.terminal-demo__line--cmd {
   color: var(--tok-fn);
 }
 
-.server-term__line--info {
+.terminal-demo__line--out {
+  color: var(--fg-2);
+}
+
+.terminal-demo__line--info {
   color: var(--fg-3);
 }
 
-.server-term__line--req {
+.terminal-demo__line--req,
+.terminal-demo__line--bench {
   color: var(--tok-var);
 }
 
-.server-term__line--res {
+.terminal-demo__line--pos,
+.terminal-demo__line--res {
   color: #6a9955;
 }
 
-.server-term__line--dim {
+.terminal-demo__line--neg {
+  color: #f48771;
+}
+
+.terminal-demo__line--dim {
   color: var(--fg-5);
 }
 
-.server-term .caret {
+.terminal-demo .caret {
   height: 1em;
   vertical-align: -0.15em;
 }

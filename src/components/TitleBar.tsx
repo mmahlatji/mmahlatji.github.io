@@ -1,5 +1,4 @@
-import { MenuIcon, SunIcon, MoonIcon } from './icons';
-import { useTheme } from '../lib/theme';
+import { MenuIcon } from './icons';
 import './TitleBar.css';
 
 interface TitleBarProps {
@@ -8,8 +7,6 @@ interface TitleBarProps {
 }
 
 export default function TitleBar({ file, onToggle }: TitleBarProps) {
-  const { theme, toggleTheme } = useTheme();
-
   return (
     <header className="titlebar">
       <div className="titlebar__left">
@@ -27,20 +24,9 @@ export default function TitleBar({ file, onToggle }: TitleBarProps) {
         <span className="titlebar__file">{file}</span>
         <span className="titlebar__sep">—</span>
         <span className="titlebar__folder">moleboheng</span>
-        <span className="titlebar__sep">—</span>
-        <span className="titlebar__app">Visual Studio Code</span>
       </div>
 
-      <div className="titlebar__right">
-        <button
-          className="titlebar__theme"
-          onClick={toggleTheme}
-          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-        >
-          {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-        </button>
-      </div>
+      <div className="titlebar__right" aria-hidden="true" />
     </header>
   );
 }

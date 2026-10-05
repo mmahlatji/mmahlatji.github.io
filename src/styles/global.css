@@ -1,7 +1,7 @@
 /* ============================================================
    Moleboheng Mahlatji — global styles
    "The Workspace": a running VS Code window.
-   Dark+ editor, one VS Code blue for everything live.
+   Light+ editor, one VS Code blue for everything live.
    ============================================================ */
 
 /* self-hosted JetBrains Mono (editor voice) */
@@ -28,42 +28,42 @@
 }
 
 :root {
-  /* VS Code Dark+ surfaces */
-  --bg: #1e1e1e; /* editor */
-  --panel: #252526; /* sidebar, panels */
-  --panel-2: #2d2d2d; /* inactive tabs, wells */
-  --activitybar: #333333;
-  --titlebar: #3c3c3c;
+  /* VS Code Light+ surfaces */
+  --bg: #ffffff;
+  --panel: #f3f3f3;
+  --panel-2: #ececec;
+  --activitybar: #ececec;
+  --titlebar: #dddddd;
   --statusbar: #007acc;
 
-  --line: #2b2b2b;
-  --line-strong: #454545;
-  --hover: #2a2d2e;
+  --line: #e5e5e5;
+  --line-strong: #d0d0d0;
+  --hover: #e8e8e8;
 
   /* foreground scale */
-  --fg: #d4d4d4;
-  --fg-2: #cccccc;
-  --fg-3: #9d9d9d;
-  --fg-4: #858585;
-  --fg-5: #6e7681;
+  --fg: #1f1f1f;
+  --fg-2: #333333;
+  --fg-3: #555555;
+  --fg-4: #777777;
+  --fg-5: #8c8c8c;
 
   /* one VS Code blue — chrome, active, live */
   --accent: #007acc;
-  --accent-bright: #3794ff;
-  --accent-soft: rgba(0, 122, 204, 0.24);
-  --selection: #264f78;
+  --accent-bright: #005fb8;
+  --accent-soft: rgba(0, 122, 204, 0.15);
+  --selection: #add6ff;
 
-  /* syntax tokens (Dark+) */
-  --tok-kw: #569cd6;
-  --tok-str: #ce9178;
-  --tok-num: #b5cea8;
-  --tok-fn: #dcdcaa;
-  --tok-type: #4ec9b0;
-  --tok-var: #9cdcfe;
-  --tok-com: #6a9955;
-  --tok-const: #4fc1ff;
-  --tok-prop: #9cdcfe;
-  --tok-punct: #d4d4d4;
+  /* syntax tokens (Light+) */
+  --tok-kw: #0000ff;
+  --tok-str: #a31515;
+  --tok-num: #098658;
+  --tok-fn: #795e26;
+  --tok-type: #267f99;
+  --tok-var: #001080;
+  --tok-com: #008000;
+  --tok-const: #0070c1;
+  --tok-prop: #001080;
+  --tok-punct: #1f1f1f;
 
   /* type */
   --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Segoe WPC',
@@ -87,50 +87,6 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* surface accents that don't map cleanly to the base scale */
-  --code-bg: #161616;
-  --code-bg-2: #1a1a1a;
-  --code-hover: rgba(255, 255, 255, 0.03);
-  --active-item: #37373d;
-  --preview-label-bg: rgba(30, 30, 30, 0.9);
-  --scrollbar: #424242;
-  --scrollbar-hover: #4f4f4f;
-  --inline-code-bg: rgba(255, 255, 255, 0.07);
-}
-
-:root[data-theme='light'] {
-  --bg: #ffffff;
-  --panel: #f3f3f3;
-  --panel-2: #ececec;
-  --activitybar: #ececec;
-  --titlebar: #dddddd;
-  --statusbar: #007acc;
-
-  --line: #e5e5e5;
-  --line-strong: #d0d0d0;
-  --hover: #e8e8e8;
-
-  --fg: #1f1f1f;
-  --fg-2: #333333;
-  --fg-3: #555555;
-  --fg-4: #777777;
-  --fg-5: #8c8c8c;
-
-  --accent: #007acc;
-  --accent-bright: #005fb8;
-  --accent-soft: rgba(0, 122, 204, 0.15);
-  --selection: #add6ff;
-
-  --tok-kw: #0000ff;
-  --tok-str: #a31515;
-  --tok-num: #098658;
-  --tok-fn: #795e26;
-  --tok-type: #267f99;
-  --tok-var: #001080;
-  --tok-com: #008000;
-  --tok-const: #0070c1;
-  --tok-prop: #001080;
-  --tok-punct: #1f1f1f;
-
   --code-bg: #fafafa;
   --code-bg-2: #f0f0f0;
   --code-hover: rgba(0, 0, 0, 0.04);
@@ -207,13 +163,7 @@ ol {
 html {
   caret-color: var(--accent);
   scrollbar-color: var(--scrollbar) var(--bg);
-  color-scheme: light dark;
-}
-html[data-theme='light'] {
   color-scheme: light;
-}
-html[data-theme='dark'] {
-  color-scheme: dark;
 }
 ::-webkit-scrollbar {
   width: 14px;

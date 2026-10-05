@@ -5,30 +5,22 @@ import SentimentDemo from './SentimentDemo';
 import HttpServerDemo from './HttpServerDemo';
 import BenchDemo from './BenchDemo';
 import { FileIcon, ArrowUpRightIcon } from './icons';
+import type { Project } from '../data/projects';
 import './ProjectCard.css';
-
-export interface Project {
-  slug: string;
-  title: string;
-  description: string;
-  tags: string[];
-  link?: string;
-  demo?: 'fluid' | 'rays' | 'data' | 'sentiment' | 'server' | 'bench';
-}
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
-  const { slug, title, description, tags, link, demo } = project;
+  const { slug, title, description, tags, link, demo, file } = project;
 
   return (
     <article id={`project-${slug}`} className="project">
       <div className="project__head">
         <span className="project__file mono">
           <FileIcon />
-          {slug}.ts
+          {file}
         </span>
         <span className={`project__status mono${link ? '' : ' is-private'}`}>
           {link ? (

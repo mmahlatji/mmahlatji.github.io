@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { projects } from '../data/projects';
+import type { FileKind } from '../data/projects';
 
-export type FileKind = 'md' | 'ts' | 'tsx' | 'py' | 'java';
+export type { FileKind };
 
 export interface ActiveFile {
   name: string;
@@ -25,14 +27,13 @@ export const HOME_FILES: Record<string, ActiveFile> = {
   experience: { name: 'experience.ts', lang: LANG.ts, kind: 'ts' },
   education: { name: 'education.ts', lang: LANG.ts, kind: 'ts' },
   projects: { name: 'projects', lang: 'Folder', kind: 'ts', folder: true },
-  'project-flip-water': { name: 'flip-water.ts', lang: LANG.ts, kind: 'ts' },
-  'project-ray-tracer': { name: 'ray-tracer.ts', lang: LANG.ts, kind: 'ts' },
-  'project-admit': { name: 'admit.ts', lang: LANG.ts, kind: 'ts' },
-  'project-sentiment': { name: 'sentiment.py', lang: LANG.py, kind: 'py' },
-  'project-http-server': { name: 'httpserver.java', lang: LANG.java, kind: 'java' },
-  'project-manybench': { name: 'manybench.py', lang: LANG.py, kind: 'py' },
-  contact: { name: 'contact.md', lang: LANG.md, kind: 'md' },
 };
+
+for (const p of projects) {
+  HOME_FILES[`project-${p.slug}`] = { name: p.file, lang: LANG[p.kind], kind: p.kind };
+}
+
+HOME_FILES.contact = { name: 'contact.md', lang: LANG.md, kind: 'md' };
 
 export const HOME_SECTIONS = Object.keys(HOME_FILES);
 

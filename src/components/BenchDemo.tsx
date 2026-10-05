@@ -1,10 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import './BenchDemo.css';
-
-interface Line {
-  text: string;
-  kind: 'cmd' | 'out' | 'bench' | 'dim';
-}
+import TerminalDemo from './TerminalDemo';
+import type { TermLine } from './TerminalDemo';
 
 const RUNS: { label: string; median: string }[][] = [
   [
@@ -19,9 +14,9 @@ const RUNS: { label: string; median: string }[][] = [
   ],
 ];
 
-function buildSession(i: number): Line[] {
+function buildSession(i: number): TermLine[] {
   const runs = RUNS[i % RUNS.length];
-  const lines: Line[] = [
+  const lines: TermLine[] = [
     { text: '➜ bench list', kind: 'cmd' },
     { text: 'physics-step', kind: 'out' },
     { text: 'check-collisions', kind: 'out' },
@@ -38,121 +33,15 @@ function buildSession(i: number): Line[] {
 }
 
 export default function BenchDemo({ className }: { className?: string }) {
-  const rootRef = useRef<HTMLDivElement | null>(null);
-  const [rendered, setRendered] = useState<Line[]>([]);
-  const [partial, setPartial] = useState('');
-  const [partialKind, setPartialKind] = useState<Line['kind']>('cmd');
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-
-    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (isReduced) {
-      setReduced(true);
-      setRendered(buildSession(0));
-      setPartial('');
-      return;
-    }
-
-    let script = buildSession(0);
-    let sessionIdx = 0;
-    let lineIdx = 0;
-    let charIdx = 0;
-    let wait = 0;
-    let timer = 0;
-    let holdTimer = 0;
-    let visible = true;
-
-    const start = () => {
-      if (timer || !visible || document.hidden) return;
-      timer = window.setInterval(tick, 16);
-    };
-    const stop = () => {
-      if (timer) {
-        window.clearInterval(timer);
-        timer = 0;
-      }
-    };
-
-    const next = () => {
-      sessionIdx = (sessionIdx + 1) % RUNS.length;
-      script = buildSession(sessionIdx);
-      lineIdx = 0;
-      charIdx = 0;
-      wait = 0;
-      setRendered([]);
-      setPartial('');
-      setPartialKind('cmd');
-      start();
-    };
-
-    const tick = () => {
-      if (wait > 0) {
-        wait--;
-        return;
-      }
-      const line = script[lineIdx];
-      if (!line) {
-        stop();
-        holdTimer = window.setTimeout(next, 2200);
-        return;
-      }
-      if (charIdx < line.text.length) {
-        charIdx++;
-        setPartial(line.text.slice(0, charIdx));
-        setPartialKind(line.kind);
-      } else {
-        setRendered((p) => [...p, line]);
-        setPartial('');
-        lineIdx++;
-        charIdx = 0;
-        wait = line.kind === 'cmd' ? 6 : 1;
-      }
-    };
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        visible = entries[0]?.isIntersecting ?? true;
-        if (visible && !document.hidden) start();
-        else stop();
-      },
-      { rootMargin: '100px' }
-    );
-    io.observe(root);
-    const onVis = () => (document.hidden ? stop() : start());
-    document.addEventListener('visibilitychange', onVis);
-
-    start();
-
-    return () => {
-      stop();
-      if (holdTimer) window.clearTimeout(holdTimer);
-      io.disconnect();
-      document.removeEventListener('visibilitychange', onVis);
-    };
-  }, []);
-
   return (
-    <div
-      ref={rootRef}
-      className={`bench-term${className ? ` ${className}` : ''}`}
-      role="log"
-      aria-label="Live terminal run of ManyBench — discovers and benchmarks a Java routine with JMH"
-    >
-      {rendered.map((line, i) => (
-        <div key={i} className={`bench-term__line bench-term__line--${line.kind}`}>
-          {line.text}
-        </div>
-      ))}
-      {!reduced && (
-        <div className={`bench-term__line bench-term__line--${partialKind}`}>
-          {partial}
-          <span className="caret" aria-hidden="true" />
-        </div>
-      )}
-    </div>
+    <TerminalDemo
+      className={className}
+      ariaLabel="Live terminal run of ManyBench — discovers and benchmarks a Java routine with JMH"
+      buildSession={buildSession}
+      sessionCount={RUNS.length}
+      typeMs={16}
+      holdMs={2200}
+      lineWait={1}
+    />
   );
 }

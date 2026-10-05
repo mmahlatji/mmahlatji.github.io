@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronIcon, FolderIcon, FileIcon, CloseIcon } from './icons';
 import type { ActiveFile } from '../lib/sections';
+import { projects } from '../data/projects';
 import './Sidebar.css';
 
 type Entry =
@@ -17,14 +18,13 @@ const TREE: Entry[] = [
     kind: 'folder',
     label: 'projects',
     section: 'projects',
-    children: [
-      { kind: 'file', label: 'flip-water.ts', type: 'ts', href: '/#project-flip-water', section: 'project-flip-water' },
-      { kind: 'file', label: 'ray-tracer.ts', type: 'ts', href: '/#project-ray-tracer', section: 'project-ray-tracer' },
-      { kind: 'file', label: 'admit.ts', type: 'ts', href: '/#project-admit', section: 'project-admit' },
-      { kind: 'file', label: 'sentiment.py', type: 'py', href: '/#project-sentiment', section: 'project-sentiment' },
-      { kind: 'file', label: 'httpserver.java', type: 'java', href: '/#project-http-server', section: 'project-http-server' },
-      { kind: 'file', label: 'manybench.py', type: 'py', href: '/#project-manybench', section: 'project-manybench' },
-    ],
+    children: projects.map((p) => ({
+      kind: 'file',
+      label: p.file,
+      type: p.kind,
+      href: `/#project-${p.slug}`,
+      section: `project-${p.slug}`,
+    })),
   },
   { kind: 'file', label: 'notes.md', type: 'md', href: '/blog', route: true },
   { kind: 'file', label: 'contact.md', type: 'md', href: '/#contact', section: 'contact' },

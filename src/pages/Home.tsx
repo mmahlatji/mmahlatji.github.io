@@ -7,153 +7,73 @@ import { ArrowUpRightIcon } from '../components/icons';
 import { projects } from '../data/projects';
 import { experience, education, details, tools } from '../data/experience';
 import { usePageTitle } from '../lib/usePageTitle';
+import { highlight } from '../lib/highlight';
 import './Home.css';
 
 const esc = (s: string) => s.replace(/"/g, '\\"');
 
 /* ---- hero: profile.ts ---- */
-const profileLines: ReactNode[] = [
-  <>
-    <span className="tok-com">// Moleboheng Mahlatji — who I am, at a glance</span>
-  </>,
-  <>
-    <span className="tok-com">// Final-year BSc Computer Science &amp; Applied Statistics @ UCT</span>
-  </>,
-  <>&nbsp;</>,
-  <>
-    <span className="tok-kw">const</span> <span className="tok-var">me</span>
-    <span className="tok-punct">: </span>
-    <span className="tok-type">Engineer</span>
-    <span className="tok-punct"> = {'{'}</span>
-  </>,
-  <>
-    {'  '}<span className="tok-prop">name</span><span className="tok-punct">:</span>{' '}
-    <span className="tok-str">"Moleboheng Mahlatji"</span><span className="tok-punct">,</span>
-  </>,
-  <>
-    {'  '}<span className="tok-prop">location</span><span className="tok-punct">:</span>{' '}
-    <span className="tok-str">"Cape Town, ZA"</span><span className="tok-punct">,</span>
-  </>,
-  <>
-    {'  '}<span className="tok-prop">currently</span><span className="tok-punct">:</span>{' '}
-    <span className="tok-str">"CS Tutor @ UCT"</span><span className="tok-punct">,</span>
-  </>,
-  <>
-    {'  '}<span className="tok-prop">building</span><span className="tok-punct">:</span>{' '}
-    <span className="tok-punct">[</span>
-    <span className="tok-str">"simulations"</span><span className="tok-punct">,</span>{' '}
-    <span className="tok-str">"graphics"</span><span className="tok-punct">,</span>{' '}
-    <span className="tok-str">"systems"</span>
-    <span className="tok-punct">],</span>
-  </>,
-  <>
-    {'  '}<span className="tok-prop">principle</span><span className="tok-punct">:</span>{' '}
-    <span className="tok-str">"quiet, fast, clear software"</span>
-  </>,
-  <>
-    <span className="tok-punct">{'}'}</span><span className="tok-punct">;</span>
-  </>,
-  <>&nbsp;</>,
-  <>
-    <span className="tok-kw">const</span> <span className="tok-var">links</span>
-    <span className="tok-punct"> = {'{'}</span>
-  </>,
-  <>
-    {'  '}<span className="tok-prop">github</span><span className="tok-punct">:</span>{' '}
-    <span className="tok-str">"github.com/mmahlatji"</span><span className="tok-punct">,</span>
-  </>,
-  <>
-    {'  '}<span className="tok-prop">linkedin</span><span className="tok-punct">:</span>{' '}
-    <span className="tok-str">"linkedin.com/in/molebohengmahlatji"</span><span className="tok-punct">,</span>
-  </>,
-  <>
-    {'  '}<span className="tok-prop">email</span><span className="tok-punct">:</span>{' '}
-    <span className="tok-str">"molebohengmahlatji@gmail.com"</span><span className="tok-punct">,</span>
-  </>,
-  <>
-    <span className="tok-punct">{'}'}</span><span className="tok-punct">;</span>
-    <span className="caret" aria-hidden="true" />
-  </>,
-];
+const profileSrc = `// Moleboheng Mahlatji — who I am, at a glance
+// Final-year BSc Computer Science & Applied Statistics @ UCT
+
+const me: Engineer = {
+  name: "Moleboheng Mahlatji",
+  location: "Cape Town, ZA",
+  currently: "CS Tutor @ UCT",
+  building: ["simulations", "graphics", "systems"],
+  principle: "quiet, fast, clear software"
+};
+
+const links = {
+  github: "github.com/mmahlatji",
+  linkedin: "linkedin.com/in/molebohengmahlatji",
+  email: "molebohengmahlatji@gmail.com",
+};`;
+
+const profileLines: ReactNode[] = (() => {
+  const lines = highlight(profileSrc);
+  const last = lines[lines.length - 1];
+  lines[lines.length - 1] = (
+    <span key="last">
+      {last}
+      <span className="caret" aria-hidden="true" />
+    </span>
+  );
+  return lines;
+})();
 
 /* ---- about: details + stack ---- */
-const detailsLines: ReactNode[] = [
-  <>
-    <span className="tok-kw">const</span> <span className="tok-var">details</span>
-    <span className="tok-punct"> = {'{'}</span>
-  </>,
-  ...details.map((d) => (
-    <>
-      {'  '}<span className="tok-prop">{d.label.toLowerCase()}</span>
-      <span className="tok-punct">:</span>{' '}
-      <span className="tok-str">"{esc(d.value)}"</span><span className="tok-punct">,</span>
-    </>
-  )),
-  <>
-    <span className="tok-punct">{'}'}</span><span className="tok-punct">;</span>
-  </>,
-  <>&nbsp;</>,
-  <>
-    <span className="tok-kw">const</span> <span className="tok-var">stack</span>
-    <span className="tok-punct"> = </span>
-    <span className="tok-punct">[</span>
-    {tools.map((t, i) => (
-      <>
-        <span className="tok-str">"{t}"</span>
-        {i < tools.length - 1 ? <span className="tok-punct">, </span> : null}
-      </>
-    ))}
-    <span className="tok-punct">];</span>
-  </>,
-];
+const detailsSrc = `const details = {
+${details.map((d) => `  ${d.label.toLowerCase()}: "${esc(d.value)}",`).join('\n')}
+};
+
+const stack = [${tools.map((t) => `"${t}"`).join(', ')}];`;
+
+const detailsLines = highlight(detailsSrc);
 
 /* ---- timeline: experience/education as code ---- */
-function timelineLines(
+function timelineSource(
   varName: string,
   typeName: string,
   items: { period: string; role: string; company: string; description: string }[]
-): ReactNode[] {
-  const lines: ReactNode[] = [
-    <>
-      <span className="tok-kw">const</span> <span className="tok-var">{varName}</span>
-      <span className="tok-punct">: </span>
-      <span className="tok-type">{typeName}</span>
-      <span className="tok-punct">[]</span>
-      <span className="tok-punct"> = [</span>
-    </>,
-  ];
-  items.forEach((item, i) => {
-    lines.push(
-      <>{'  '}<span className="tok-punct">{'{'}</span></>,
-      <>
-        {'    '}<span className="tok-prop">role</span><span className="tok-punct">:</span>{' '}
-        <span className="tok-str">"{esc(item.role)}"</span><span className="tok-punct">,</span>
-      </>,
-      <>
-        {'    '}<span className="tok-prop">company</span><span className="tok-punct">:</span>{' '}
-        <span className="tok-str">"{esc(item.company)}"</span><span className="tok-punct">,</span>
-      </>,
-      <>
-        {'    '}<span className="tok-prop">period</span><span className="tok-punct">:</span>{' '}
-        <span className="tok-str">"{esc(item.period)}"</span><span className="tok-punct">,</span>
-      </>,
-      <>
-        {'    '}<span className="tok-prop">note</span><span className="tok-punct">:</span>{' '}
-        <span className="tok-str">"{esc(item.description)}"</span>
-      </>,
-      <>
-        {'  '}<span className="tok-punct">{'}'}</span>
-        {i < items.length - 1 ? <span className="tok-punct">,</span> : null}
-      </>
-    );
-  });
-  lines.push(
-    <>
-      <span className="tok-punct">];</span>
-    </>
-  );
-  return lines;
+): string {
+  const body = items
+    .map(
+      (item) => `  {
+    role: "${esc(item.role)}",
+    company: "${esc(item.company)}",
+    period: "${esc(item.period)}",
+    note: "${esc(item.description)}"
+  }`
+    )
+    .join(',\n');
+  return `const ${varName}: ${typeName}[] = [
+${body}
+];`;
 }
+
+const experienceLines = highlight(timelineSource('experience', 'Experience', experience));
+const educationLines = highlight(timelineSource('education', 'Education', education));
 
 export default function Home() {
   usePageTitle(
@@ -247,7 +167,7 @@ export default function Home() {
         intro="Teaching, shipping, and learning — a couple of stops on the way."
       >
         <CodeBlock
-          lines={timelineLines('experience', 'Experience', experience)}
+          lines={experienceLines}
           filename="experience.ts"
           lang="TypeScript"
         />
@@ -260,7 +180,7 @@ export default function Home() {
         intro="Computer Science and Applied Statistics, currently in the final year."
       >
         <CodeBlock
-          lines={timelineLines('education', 'Education', education)}
+          lines={educationLines}
           filename="education.ts"
           lang="TypeScript"
         />
