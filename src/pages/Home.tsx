@@ -21,7 +21,7 @@ const me: Engineer = {
   location: "Cape Town, ZA",
   currently: "CS Tutor @ UCT",
   building: ["simulations", "graphics", "systems"],
-  principle: "quiet, fast, clear software"
+  principle: "The man who says he can and the man who says he can't are both correct"
 };
 
 const links = {
@@ -82,13 +82,25 @@ export default function Home() {
   );
 
   const [copied, setCopied] = useState(false);
+  const EMAIL = 'molebohengmahlatji@gmail.com';
   const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText('molebohengmahlatji@gmail.com');
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(EMAIL);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = EMAIL;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Clipboard may be unavailable (e.g. non-HTTPS); do nothing.
+      setCopied(false);
     }
   };
 
@@ -99,7 +111,7 @@ export default function Home() {
         <div className="wrap">
           <h1 className="hero__title">
             <span className="md-mark mono" aria-hidden="true"># </span>
-            Moleboheng Mahlatji
+            Moleboheng <span className="hero__ln">Mahlatji</span>
           </h1>
           <p className="hero__sub">
             Final-year BSc Computer Science &amp; Applied Statistics student at
@@ -107,12 +119,24 @@ export default function Home() {
             software that is quiet, fast, and clear.
           </p>
 
-          <CodeBlock
-            lines={profileLines}
-            filename="profile.ts"
-            lang="TypeScript"
-            className="hero__code"
-          />
+          <div className="hero__decl mono">
+            <span className="hero__decl-prompt">➜</span>
+            {highlight('const me: Engineer = { currently: "CS Tutor @ UCT", principle: "The man who says he can and the man who says he can\'t are both correct" };')}
+          </div>
+
+          <details className="hero__file">
+            <summary className="hero__file-summary mono">
+              <span className="hero__file-chevron">▸</span>
+              <span>profile.ts</span>
+              <span className="hero__file-hint" />
+            </summary>
+            <CodeBlock
+              lines={profileLines}
+              filename="profile.ts"
+              lang="TypeScript"
+              className="hero__file-code"
+            />
+          </details>
 
           <div className="hero__actions">
             <a href="#projects" className="btn">
@@ -135,24 +159,21 @@ export default function Home() {
       {/* ============ ABOUT ============ */}
       <Section
         id="about"
-        title="Clarity is the feature."
-        intro="Final-year BSc student at UCT, CS tutor, and intern-trained developer — curious about how systems work and how to make them clearer."
+        title="About me."
+        intro="A quick background, and the tools I use."
       >
         <div className="about">
           <div className="about__bio">
             <p>
-              I'm in my final year of a BSc in Computer Science and Applied
-              Statistics at the University of Cape Town, where I also tutor
-              other computer science students.
+              I build simulations and graphics — the kind of software you can
+              run and watch. You can try them in the projects below.
             </p>
             <p>
-              Across a software development internship and a growing set of
-              personal projects, I've learned to value clarity over cleverness —
-              building things that work and are easy to reason about.
+              An internship at Reslocate taught me to work inside a real
+              codebase: review, ship, and keep the code readable.
             </p>
             <p>
-              These days I'm writing Java and TypeScript, exploring simulation
-              and graphics, and documenting what I learn along the way.
+              These days I write mostly Java and TypeScript.
             </p>
           </div>
 
@@ -190,7 +211,7 @@ export default function Home() {
       <Section
         id="projects"
         title="Things I've shipped."
-        intro="A selection of projects — each one running live where it can. All of them taught me something."
+        intro="A selection of projects that have each taught me something."
       >
         <div className="projects">
           {projects.map((p) => (
@@ -253,14 +274,18 @@ export default function Home() {
                 <span className="terminal__prompt mono">➜ ~</span>
                 <span>
                   mail{' '}
-                  <button
-                    type="button"
-                    className="terminal__mail terminal__mail-btn"
-                    onClick={copyEmail}
-                  >
-                    {copied ? 'copied ✓' : 'copy molebohengmahlatji@gmail.com'}
-                  </button>
+                  <a className="terminal__mail" href="mailto:molebohengmahlatji@gmail.com">
+                    molebohengmahlatji@gmail.com
+                  </a>
                 </span>
+                <button
+                  type="button"
+                  className="terminal__copy"
+                  onClick={copyEmail}
+                  aria-live="polite"
+                >
+                  {copied ? 'copied ✓' : 'copy'}
+                </button>
                 <span className="caret" aria-hidden="true" />
               </p>
             </div>

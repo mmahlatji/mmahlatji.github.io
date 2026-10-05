@@ -22,8 +22,8 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.7rem 0.7rem 0.7rem 0.4rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--fg-3);
 }

@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import {
   FilesIcon,
-  SearchIcon,
+  MailIcon,
   SourceControlIcon,
-  RunIcon,
-  ExtensionsIcon,
+  CubeIcon,
+  DocIcon,
 } from './icons';
 import '../styles/ActivityBar.css';
 
@@ -20,14 +20,15 @@ export default function ActivityBar({ explorerActive, onToggleExplorer }: Activi
         <button
           className={`activitybar__item${explorerActive ? ' is-active' : ''}`}
           onClick={onToggleExplorer}
-          aria-label="Explorer"
-          title="Explorer"
+          title="Toggle Explorer"
         >
           <FilesIcon />
+          <span className="activitybar__label">Explorer</span>
         </button>
 
-        <a className="activitybar__item" href="/#contact" aria-label="Contact" title="Contact">
-          <SearchIcon />
+        <a className="activitybar__item" href="/#contact" title="Contact">
+          <MailIcon />
+          <span className="activitybar__label">Contact</span>
         </a>
 
         <a
@@ -35,18 +36,20 @@ export default function ActivityBar({ explorerActive, onToggleExplorer }: Activi
           href="https://github.com/mmahlatji"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="GitHub"
           title="GitHub"
         >
           <SourceControlIcon />
+          <span className="activitybar__label">GitHub</span>
         </a>
 
-        <a className="activitybar__item" href="/#projects" aria-label="Projects" title="Projects">
-          <RunIcon />
+        <a className="activitybar__item" href="/#projects" title="Projects">
+          <CubeIcon />
+          <span className="activitybar__label">Projects</span>
         </a>
 
-        <Link className="activitybar__item" to="/blog" aria-label="Notes" title="Notes">
-          <ExtensionsIcon />
+        <Link className="activitybar__item" to="/blog" title="Notes">
+          <DocIcon />
+          <span className="activitybar__label">Notes</span>
         </Link>
       </div>
     </nav>

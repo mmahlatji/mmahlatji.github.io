@@ -16,7 +16,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const { slug, title, description, tags, link, demo, file } = project;
 
   return (
-    <article id={`project-${slug}`} className="project">
+    <article
+      id={`project-${slug}`}
+      className="project"
+    >
       <div className="project__head">
         <span className="project__file mono">
           <FileIcon />

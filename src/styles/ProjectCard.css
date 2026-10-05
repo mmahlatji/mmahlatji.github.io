@@ -4,14 +4,11 @@
   background: var(--panel);
   border: 1px solid var(--line-strong);
   overflow: hidden;
-  transition:
-    border-color 0.2s var(--ease),
-    box-shadow 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease);
 }
 
 .project:hover {
   border-color: var(--accent);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .project__head {
@@ -38,8 +35,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.64rem;
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--tok-com);
 }
@@ -78,8 +75,8 @@
   background: var(--preview-label-bg);
   border: 1px solid var(--line);
   color: var(--fg-4);
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -116,7 +113,7 @@
 }
 
 .project__tags li {
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   color: var(--tok-var);
   padding: 0.2rem 0.5rem;
   border: 1px solid var(--line);

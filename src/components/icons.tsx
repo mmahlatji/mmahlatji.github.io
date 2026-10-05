@@ -73,6 +73,33 @@ export function GearIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function MailIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="3" y="5" width="18" height="14" rx="1" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
+}
+
+export function CubeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M12 3 4 7v10l8 4 8-4V7l-8-4Z" />
+      <path d="M4 7l8 4 8-4M12 11v10" />
+    </svg>
+  );
+}
+
+export function DocIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M6 3h8l4 4v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V4.5A1.5 1.5 0 0 1 7.5 3Z" />
+      <path d="M14 3v4h4M9 12h6M9 15.5h6" />
+    </svg>
+  );
+}
+
 export function ChevronIcon({ open, ...props }: SVGProps<SVGSVGElement> & { open?: boolean }) {
   return (
     <svg {...base} {...props} width={16} height={16} style={{ transform: open ? 'rotate(90deg)' : undefined }}>

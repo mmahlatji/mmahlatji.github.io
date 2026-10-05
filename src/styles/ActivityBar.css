@@ -18,12 +18,27 @@
 
 .activitybar__item {
   position: relative;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
   width: var(--activitybar-w);
-  height: var(--activitybar-w);
+  padding: 0.6rem 0.2rem 0.55rem;
   color: var(--fg-4);
   transition: color 0.15s var(--ease);
+}
+
+.activitybar__item svg {
+  width: 22px;
+  height: 22px;
+}
+
+.activitybar__label {
+  font-size: 0.72rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--fg-3);
+  white-space: nowrap;
 }
 
 .activitybar__item::before {
@@ -41,8 +56,14 @@
 .activitybar__item:hover {
   color: var(--fg);
 }
+.activitybar__item:hover .activitybar__label {
+  color: var(--fg);
+}
 
 .activitybar__item.is-active {
+  color: var(--fg);
+}
+.activitybar__item.is-active .activitybar__label {
   color: var(--fg);
 }
 .activitybar__item.is-active::before {
