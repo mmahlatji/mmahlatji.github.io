@@ -24,22 +24,22 @@ export default function Workbench({ children }: { children: ReactNode }) {
     <div className={`workbench${sidebarOpen ? '' : ' sidebar-closed'}`}>
       <TitleBar file={file.name} onToggle={toggle} />
       <ActivityBar explorerActive={sidebarOpen} onToggleExplorer={toggle} />
-      <Sidebar open={sidebarOpen} onClose={toggle} activeFile={file} />
+      <Sidebar open={sidebarOpen} onClose={toggle} activeFile={file} activeSection={section} />
 
       <main className="editor">
         <div className="editor__tabs">
-          <div className="editor__tab is-active" role="tab" aria-selected="true">
+          <div className="editor__tab is-active">
             <span className="editor__tab-icon">
               {file.folder ? <FolderIcon /> : <FileIcon />}
             </span>
             <span className="editor__tab-name mono">{file.name}</span>
-            <button className="editor__tab-close" aria-label={`Close ${file.name}`} tabIndex={-1}>
+            <span className="editor__tab-close" aria-hidden="true">
               <CloseIcon />
-            </button>
+            </span>
           </div>
           <div className="editor__tabs-spacer" />
         </div>
-        <div className="editor__crumbs mono" aria-label="Breadcrumbs">
+        <div className="editor__crumbs mono" role="navigation" aria-label="Breadcrumbs">
           <span className="editor__crumb-sep" aria-hidden="true">›</span>
           <span>moleboheng</span>
           <span className="editor__crumb-sep" aria-hidden="true">›</span>

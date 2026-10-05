@@ -22,7 +22,7 @@ export default function RayDemo({ className }: { className?: string }) {
     let raf = 0;
     let running = false;
     let visible = true;
-    const light = { x: 0, y: 0, active: true };
+    const light = { x: 0, y: 0 };
     let circles: { x: number; y: number; r: number }[] = [];
 
     const RAYS = 260;
@@ -134,7 +134,6 @@ export default function RayDemo({ className }: { className?: string }) {
       const rect = canvas.getBoundingClientRect();
       light.x = e.clientX - rect.left;
       light.y = e.clientY - rect.top;
-      light.active = true;
       if (reduced) draw();
     };
     const onDown = (e: PointerEvent) => {
@@ -181,7 +180,7 @@ export default function RayDemo({ className }: { className?: string }) {
     <canvas
       ref={canvasRef}
       className={className}
-      style={{ touchAction: 'none' }}
+      style={{ touchAction: 'none', cursor: 'crosshair' }}
       role="img"
       aria-label="Interactive 2D ray tracer — drag the light source"
     />

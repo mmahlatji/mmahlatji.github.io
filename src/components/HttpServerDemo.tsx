@@ -29,14 +29,16 @@ export default function HttpServerDemo({ className }: { className?: string }) {
   const [rendered, setRendered] = useState<Line[]>([]);
   const [partial, setPartial] = useState('');
   const [partialKind, setPartialKind] = useState<Line['kind']>('cmd');
+  const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (reduced) {
+    if (isReduced) {
+      setReduced(true);
       setRendered(buildSession(0));
       setPartial('');
       return;
@@ -124,7 +126,7 @@ export default function HttpServerDemo({ className }: { className?: string }) {
     <div
       ref={rootRef}
       className={`server-term${className ? ` ${className}` : ''}`}
-      role="img"
+      role="log"
       aria-label="Live terminal log of the HTTP server — accepts a connection and responds"
     >
       {rendered.map((line, i) => (
@@ -132,10 +134,12 @@ export default function HttpServerDemo({ className }: { className?: string }) {
           {line.text}
         </div>
       ))}
-      <div className={`server-term__line server-term__line--${partialKind}`}>
-        {partial}
-        <span className="caret" aria-hidden="true" />
-      </div>
+      {!reduced && (
+        <div className={`server-term__line server-term__line--${partialKind}`}>
+          {partial}
+          <span className="caret" aria-hidden="true" />
+        </div>
+      )}
     </div>
   );
 }

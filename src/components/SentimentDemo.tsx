@@ -31,14 +31,16 @@ export default function SentimentDemo({ className }: { className?: string }) {
   const [rendered, setRendered] = useState<Line[]>([]);
   const [partial, setPartial] = useState('');
   const [partialKind, setPartialKind] = useState<Line['kind']>('cmd');
+  const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (reduced) {
+    if (isReduced) {
+      setReduced(true);
       setRendered(buildSession(TICKERS[0]));
       setPartial('');
       return;
@@ -126,7 +128,7 @@ export default function SentimentDemo({ className }: { className?: string }) {
     <div
       ref={rootRef}
       className={`sentiment-term${className ? ` ${className}` : ''}`}
-      role="img"
+      role="log"
       aria-label="Live terminal run of the headline sentiment analyzer — scrapes headlines and scores them with FinBERT"
     >
       {rendered.map((line, i) => (
@@ -134,10 +136,12 @@ export default function SentimentDemo({ className }: { className?: string }) {
           {line.text}
         </div>
       ))}
-      <div className={`sentiment-term__line sentiment-term__line--${partialKind}`}>
-        {partial}
-        <span className="caret" aria-hidden="true" />
-      </div>
+      {!reduced && (
+        <div className={`sentiment-term__line sentiment-term__line--${partialKind}`}>
+          {partial}
+          <span className="caret" aria-hidden="true" />
+        </div>
+      )}
     </div>
   );
 }

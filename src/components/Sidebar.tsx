@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronIcon, FolderIcon, FileIcon, CloseIcon } from './icons';
-import { useActiveSection } from '../lib/sections';
 import type { ActiveFile } from '../lib/sections';
 import './Sidebar.css';
 
@@ -50,7 +49,10 @@ function TreeRow({ entry, depth, active }: { entry: Entry; depth: number; active
     );
   }
 
-  const isActive = entry.section === active;
+  const childActive = entry.children.some(
+    (c) => c.kind === 'file' && c.section === active
+  );
+  const isActive = entry.section === active || childActive;
   return (
     <>
       <button
@@ -75,12 +77,13 @@ export default function Sidebar({
   open,
   onClose,
   activeFile,
+  activeSection,
 }: {
   open: boolean;
   onClose: () => void;
   activeFile: ActiveFile;
+  activeSection: string;
 }) {
-  const activeSection = useActiveSection();
   const { pathname } = useLocation();
   const active = pathname === '/' ? activeSection : 'notes';
   const fileType = activeFile.kind;

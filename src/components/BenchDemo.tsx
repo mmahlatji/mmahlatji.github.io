@@ -42,14 +42,16 @@ export default function BenchDemo({ className }: { className?: string }) {
   const [rendered, setRendered] = useState<Line[]>([]);
   const [partial, setPartial] = useState('');
   const [partialKind, setPartialKind] = useState<Line['kind']>('cmd');
+  const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (reduced) {
+    if (isReduced) {
+      setReduced(true);
       setRendered(buildSession(0));
       setPartial('');
       return;
@@ -137,7 +139,7 @@ export default function BenchDemo({ className }: { className?: string }) {
     <div
       ref={rootRef}
       className={`bench-term${className ? ` ${className}` : ''}`}
-      role="img"
+      role="log"
       aria-label="Live terminal run of ManyBench — discovers and benchmarks a Java routine with JMH"
     >
       {rendered.map((line, i) => (
@@ -145,10 +147,12 @@ export default function BenchDemo({ className }: { className?: string }) {
           {line.text}
         </div>
       ))}
-      <div className={`bench-term__line bench-term__line--${partialKind}`}>
-        {partial}
-        <span className="caret" aria-hidden="true" />
-      </div>
+      {!reduced && (
+        <div className={`bench-term__line bench-term__line--${partialKind}`}>
+          {partial}
+          <span className="caret" aria-hidden="true" />
+        </div>
+      )}
     </div>
   );
 }

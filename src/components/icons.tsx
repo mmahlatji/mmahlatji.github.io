@@ -160,11 +160,3 @@ export function ArrowUpRightIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-
-export function TerminalIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props} width={16} height={16}>
-      <path d="M4 6l4 4-4 4M10 14h6" />
-    </svg>
-  );
-}

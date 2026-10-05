@@ -12,7 +12,7 @@ export default function ScrollManager() {
         return;
       }
     }
-    window.scrollTo({ top: 0, behavior: 'auto' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [pathname, hash]);
 
   return null;

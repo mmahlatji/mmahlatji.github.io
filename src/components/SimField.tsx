@@ -1,14 +1,8 @@
 import { useEffect, useRef } from 'react';
 
-export type FieldMode = 'ink' | 'fluid';
-
 interface SimFieldProps {
-  mode?: FieldMode;
-  interactive?: boolean;
   /** particles per 10_000 px^2 of canvas area */
   density?: number;
-  /** draw the cursor's signal glow (interactive hero only) */
-  glow?: boolean;
   /** paint an opaque field background so trails can fade */
   background?: string;
   className?: string;
@@ -21,18 +15,12 @@ interface Particle {
   vx: number;
   vy: number;
   r: number;
-  hx: number;
-  hy: number;
 }
 
-const INK = '212, 212, 212';
 const SIGNAL = '0, 122, 204';
 
 export default function SimField({
-  mode = 'ink',
-  interactive = false,
   density = 0.4,
-  glow = false,
   background,
   className,
   ariaLabel,
@@ -55,10 +43,7 @@ export default function SimField({
     let running = false;
     let visible = true;
     let t = 0;
-    const pointer = { x: -9999, y: -9999, active: false };
-
-    const isFluid = mode === 'fluid';
-    const rgb = isFluid ? SIGNAL : INK;
+    let blob: HTMLCanvasElement | null = null;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -84,10 +69,8 @@ export default function SimField({
           y,
           vx: 0,
           vy: 0,
-          // fluid uses soft, overlapping blobs (metaballs); ink uses fine marks
-          r: isFluid ? 5 + Math.random() * 7 : 0.6 + Math.random() * 1.1,
-          hx: x,
-          hy: y,
+          // soft, overlapping blobs (metaballs)
+          r: 5 + Math.random() * 7,
         };
       });
       if (background) {
@@ -96,22 +79,33 @@ export default function SimField({
       }
     };
 
-    const drawInkParticle = (p: Particle, alpha: number) => {
-      ctx.fillStyle = `rgba(${rgb}, ${alpha})`;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
+    const makeBlob = () => {
+      // Pre-render the metaball blob once instead of allocating a radial
+      // gradient per particle per frame. The blob is drawn scaled to each
+      // particle's radius.
+      const maxR = 12;
+      const size = Math.ceil(maxR * 2 * dpr);
+      const c = document.createElement('canvas');
+      c.width = size;
+      c.height = size;
+      const g = c.getContext('2d');
+      if (!g) return;
+      g.scale(dpr, dpr);
+      const grad = g.createRadialGradient(maxR, maxR, 0, maxR, maxR, maxR);
+      grad.addColorStop(0, `rgba(${SIGNAL}, 0.5)`);
+      grad.addColorStop(0.55, `rgba(${SIGNAL}, 0.2)`);
+      grad.addColorStop(1, `rgba(${SIGNAL}, 0)`);
+      g.fillStyle = grad;
+      g.beginPath();
+      g.arc(maxR, maxR, maxR, 0, Math.PI * 2);
+      g.fill();
+      blob = c;
     };
 
     const drawFluidParticle = (p: Particle) => {
-      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-      g.addColorStop(0, `rgba(${SIGNAL}, 0.5)`);
-      g.addColorStop(0.55, `rgba(${SIGNAL}, 0.2)`);
-      g.addColorStop(1, `rgba(${SIGNAL}, 0)`);
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
+      if (!blob) return;
+      const size = p.r * 2;
+      ctx.drawImage(blob, p.x - p.r, p.y - p.r, size, size);
     };
 
     const step = () => {
@@ -120,97 +114,37 @@ export default function SimField({
 
       if (background) {
         ctx.fillStyle = background;
-        ctx.globalAlpha = isFluid ? 0.22 : 0.16;
+        ctx.globalAlpha = 0.22;
         ctx.fillRect(0, 0, width, height);
         ctx.globalAlpha = 1;
       } else {
         ctx.clearRect(0, 0, width, height);
       }
 
-      if (isFluid) {
-        // water: a coherent channel current, fastest mid-stream, that snakes
-        // gently. No cohesion — droplets ride parallel streamlines so it reads
-        // as flowing liquid, not blobs drifting.
-        for (const p of particles) {
-          const profile = Math.sin((p.y / height) * Math.PI); // 0 at edges, 1 mid
-          const targetFlow = 0.7 + profile * 2.3;
-          p.vx += (targetFlow - p.vx) * 0.05;
-          p.vy +=
-            (Math.sin(p.x * 0.022 + t * 1.3) * 0.55 +
-              Math.cos(p.y * 0.03 + t * 0.7) * 0.2 -
-              p.vy) *
-            0.04;
+      // water: a coherent channel current, fastest mid-stream, that snakes
+      // gently. No cohesion — droplets ride parallel streamlines so it reads
+      // as flowing liquid, not blobs drifting.
+      for (const p of particles) {
+        const profile = Math.sin((p.y / height) * Math.PI); // 0 at edges, 1 mid
+        const targetFlow = 0.7 + profile * 2.3;
+        p.vx += (targetFlow - p.vx) * 0.05;
+        p.vy +=
+          (Math.sin(p.x * 0.022 + t * 1.3) * 0.55 +
+            Math.cos(p.y * 0.03 + t * 0.7) * 0.2 -
+            p.vy) *
+          0.04;
 
-          p.vx *= 0.97;
-          p.vy *= 0.97;
-          p.x += p.vx;
-          p.y += p.vy;
+        p.vx *= 0.97;
+        p.vy *= 0.97;
+        p.x += p.vx;
+        p.y += p.vy;
 
-          if (p.x < -24) p.x = width + 24;
-          if (p.x > width + 24) p.x = -24;
-          if (p.y < -24) p.y = height + 24;
-          if (p.y > height + 24) p.y = -24;
+        if (p.x < -24) p.x = width + 24;
+        if (p.x > width + 24) p.x = -24;
+        if (p.y < -24) p.y = height + 24;
+        if (p.y > height + 24) p.y = -24;
 
-          drawFluidParticle(p);
-        }
-      } else {
-        const wind = 0.0012;
-        const damp = 0.9;
-        for (const p of particles) {
-          const wx =
-            Math.sin(p.y * 0.012 + t * 0.5) * 0.5 +
-            Math.cos(p.y * 0.004 + t * 0.2) * 0.3;
-          const wy =
-            Math.cos(p.x * 0.012 + t * 0.4) * 0.5 +
-            Math.sin(p.x * 0.005 + t * 0.22) * 0.3;
-          p.vx += wx * wind;
-          p.vy += wy * wind;
-
-          p.vx += (p.hx - p.x) * 0.0008;
-          p.vy += (p.hy - p.y) * 0.0008;
-
-          if (interactive && pointer.active) {
-            const dx = p.x - pointer.x;
-            const dy = p.y - pointer.y;
-            const d2 = dx * dx + dy * dy;
-            const R = 180;
-            if (d2 < R * R && d2 > 0.01) {
-              const d = Math.sqrt(d2);
-              const f = ((R - d) / R) * 0.9;
-              p.vx += (dx / d) * f;
-              p.vy += (dy / d) * f;
-            }
-          }
-
-          p.vx *= damp;
-          p.vy *= damp;
-          p.x += p.vx;
-          p.y += p.vy;
-
-          if (p.x < -12) p.x = width + 12;
-          if (p.x > width + 12) p.x = -12;
-          if (p.y < -12) p.y = height + 12;
-          if (p.y > height + 12) p.y = -12;
-
-          drawInkParticle(p, 0.42);
-        }
-      }
-
-      if (glow && interactive && pointer.active) {
-        const g = ctx.createRadialGradient(
-          pointer.x, pointer.y, 0,
-          pointer.x, pointer.y, 130
-        );
-        g.addColorStop(0, `rgba(${SIGNAL}, 0.12)`);
-        g.addColorStop(1, `rgba(${SIGNAL}, 0)`);
-        ctx.fillStyle = g;
-        ctx.fillRect(pointer.x - 130, pointer.y - 130, 260, 260);
-
-        ctx.strokeStyle = `rgba(${SIGNAL}, 0.35)`;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.arc(pointer.x, pointer.y, 6, 0, Math.PI * 2);
-        ctx.stroke();
+        drawFluidParticle(p);
       }
 
       raf = requestAnimationFrame(step);
@@ -224,8 +158,7 @@ export default function SimField({
         ctx.clearRect(0, 0, width, height);
       }
       for (const p of particles) {
-        if (isFluid) drawFluidParticle(p);
-        else drawInkParticle(p, 0.32);
+        drawFluidParticle(p);
       }
     };
 
@@ -245,14 +178,6 @@ export default function SimField({
       else if (visible) start();
     };
 
-    const onPointerMove = (e: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      pointer.x = e.clientX - rect.left;
-      pointer.y = e.clientY - rect.top;
-      pointer.active =
-        pointer.x >= 0 && pointer.x <= width && pointer.y >= 0 && pointer.y <= height;
-    };
-
     const io = new IntersectionObserver(
       (entries) => {
         visible = entries[0]?.isIntersecting ?? true;
@@ -263,11 +188,9 @@ export default function SimField({
     );
     io.observe(canvas);
 
-    if (interactive) {
-      window.addEventListener('pointermove', onPointerMove);
-    }
     document.addEventListener('visibilitychange', onVisibility);
 
+    makeBlob();
     resize();
     if (reduced) drawStatic();
     else start();
@@ -283,11 +206,8 @@ export default function SimField({
       io.disconnect();
       ro.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
-      if (interactive) {
-        window.removeEventListener('pointermove', onPointerMove);
-      }
     };
-  }, [mode, interactive, density, glow, background]);
+  }, [density, background]);
 
   return (
     <canvas

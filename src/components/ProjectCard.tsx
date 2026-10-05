@@ -45,7 +45,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       {demo && (
         <div className="project__preview">
           {demo === 'fluid' && (
-            <SimField mode="fluid" density={18} background="#1e1e1e" className="project__canvas" ariaLabel={`${title} — live fluid simulation`} />
+            <SimField density={18} background="#1e1e1e" className="project__canvas" ariaLabel={`${title} — live fluid simulation`} />
           )}
           {demo === 'rays' && <RayDemo className="project__canvas" />}
           {demo === 'data' && <DataDemo className="project__canvas" />}

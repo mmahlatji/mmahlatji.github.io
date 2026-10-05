@@ -67,12 +67,14 @@ function loadPosts(): Post[] {
     .sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());
 }
 
+const ALL_POSTS = loadPosts();
+
 export function getAllPosts(): Post[] {
-  return loadPosts().filter((p) => !p.draft);
+  return ALL_POSTS.filter((p) => !p.draft);
 }
 
 export function getPost(slug: string): Post | undefined {
-  return loadPosts().find((p) => p.slug === slug && !p.draft);
+  return ALL_POSTS.find((p) => p.slug === slug && !p.draft);
 }
 
 export function formatDate(date: Date): string {
