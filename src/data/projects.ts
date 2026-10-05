@@ -7,7 +7,7 @@ export const projects: Project[] = [
     description:
       'A real-time FLIP fluid simulation in Java. Hexagonal particle packing, spatial-hash neighbor lookup, and an over-relaxed pressure solver, rendered live with Swing.',
     tags: ['Java', 'Swing', 'Fluid Sim', 'Physics'],
-    link: 'https://github.com/wakeupm11y/flip-water-simulator',
+    link: 'https://github.com/mmahlatji/flip-water-simulator',
     demo: 'fluid',
   },
   {
@@ -16,7 +16,7 @@ export const projects: Project[] = [
     description:
       'A 2D interactive ray tracer in Java Swing. Rays are cast from a draggable light source and solved analytically against circles using the quadratic formula, with real-time shadows.',
     tags: ['Java', 'Swing', 'Ray Tracing', 'Graphics'],
-    link: 'https://github.com/wakeupm11y/2D-Raytracer',
+    link: 'https://github.com/mmahlatji/2D-Raytracer',
     demo: 'rays',
   },
   {
@@ -33,7 +33,7 @@ export const projects: Project[] = [
     description:
       'A pipeline that scrapes market headlines from Yahoo Finance, scores them with FinBERT, and correlates the sentiment against daily open→close moves. Built with Selenium, BeautifulSoup, and Transformers.',
     tags: ['Python', 'FinBERT', 'Transformers', 'Selenium', 'pandas'],
-    link: 'https://github.com/wakeupm11y/HeadlineAnalyzer',
+    link: 'https://github.com/mmahlatji/HeadlineAnalyzer',
     demo: 'sentiment',
   },
   {
@@ -42,7 +42,7 @@ export const projects: Project[] = [
     description:
       'A minimal HTTP/1.1 server written from scratch in Java. Parses request lines, accepts connections on a ServerSocket, and responds over worker threads — built with Jackson for config and SLF4J for logging.',
     tags: ['Java', 'HTTP', 'Sockets', 'Jackson', 'SLF4J'],
-    link: 'https://github.com/wakeupm11y/HTTP-Server',
+    link: 'https://github.com/mmahlatji/HTTP-Server',
     demo: 'server',
   },
   {
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     description:
       'A local-first benchmarking platform that orchestrates JMH via @bench source comments. Describe what to measure, and it discovers routines, generates benchmarks, builds, and reports timings — across languages by design.',
     tags: ['Python', 'Typer', 'JMH', 'Java', 'CLI'],
-    link: 'https://github.com/wakeupm11y/manybench',
+    link: 'https://github.com/mmahlatji/manybench',
     demo: 'bench',
   },
 ];

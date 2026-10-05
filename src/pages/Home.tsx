@@ -59,7 +59,7 @@ const profileLines: ReactNode[] = [
   </>,
   <>
     {'  '}<span className="tok-prop">github</span><span className="tok-punct">:</span>{' '}
-    <span className="tok-str">"github.com/wakeupm11y"</span><span className="tok-punct">,</span>
+    <span className="tok-str">"github.com/mmahlatji"</span><span className="tok-punct">,</span>
   </>,
   <>
     {'  '}<span className="tok-prop">linkedin</span><span className="tok-punct">:</span>{' '}
@@ -268,7 +268,7 @@ export default function Home() {
 
         <div className="projects__more">
           <a
-            href="https://github.com/wakeupm11y"
+            href="https://github.com/mmahlatji"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn--ghost"
@@ -302,7 +302,7 @@ export default function Home() {
             <div className="terminal__body">
               <p className="terminal__line">
                 <span className="terminal__prompt mono">➜ ~</span>
-                <span>git clone github.com/wakeupm11y</span>
+                <span>git clone github.com/mmahlatji</span>
               </p>
               <p className="terminal__line">
                 <span className="terminal__prompt mono">➜ ~</span>

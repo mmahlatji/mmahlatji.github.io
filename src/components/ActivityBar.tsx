@@ -33,7 +33,7 @@ export default function ActivityBar({ explorerActive, onToggleExplorer }: Activi
 
         <a
           className="activitybar__item"
-          href="https://github.com/wakeupm11y"
+          href="https://github.com/mmahlatji"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Source Control"
