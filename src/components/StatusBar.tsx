@@ -24,10 +24,6 @@ export default function StatusBar({ file }: { file: string }) {
       </div>
 
       <div className="statusbar__group statusbar__group--right">
-        <span className="statusbar__item live statusbar__live" aria-hidden="true">
-          <span className="live__dot" />
-          <span>simulating</span>
-        </span>
         <span className="statusbar__item">{file}</span>
         <span className="statusbar__item">Ln 1, Col 1</span>
         <span className="statusbar__item">Spaces: 2</span>

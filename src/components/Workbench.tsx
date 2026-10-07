@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import TitleBar from './TitleBar';
 import ActivityBar from './ActivityBar';
 import Sidebar from './Sidebar';
@@ -19,6 +19,15 @@ export default function Workbench({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
   const section = useActiveSection();
   const file = fileForLocation(pathname, section);
+  const isNotes = pathname === '/blog' || pathname.startsWith('/blog/');
+
+  const [lastHome, setLastHome] = useState('top');
+  useEffect(() => {
+    if (!isNotes) setLastHome(section);
+  }, [isNotes, section]);
+
+  const homeFile = fileForLocation('/', lastHome);
+  const homeHref = lastHome === 'top' ? '/' : `/#${lastHome}`;
 
   return (
     <div className={`workbench${sidebarOpen ? '' : ' sidebar-closed'}`}>
@@ -28,15 +37,24 @@ export default function Workbench({ children }: { children: ReactNode }) {
 
       <main className="editor">
         <div className="editor__tabs">
-          <div className="editor__tab is-active">
+          <Link to={homeHref} className={`editor__tab${isNotes ? '' : ' is-active'}`}>
             <span className="editor__tab-icon">
-              {file.folder ? <FolderIcon /> : <FileIcon />}
+              {homeFile.folder ? <FolderIcon /> : <FileIcon />}
             </span>
-            <span className="editor__tab-name mono">{file.name}</span>
+            <span className="editor__tab-name mono">{homeFile.name}</span>
             <span className="editor__tab-close" aria-hidden="true">
               <CloseIcon />
             </span>
-          </div>
+          </Link>
+          <Link to="/blog" className={`editor__tab${isNotes ? ' is-active' : ''}`}>
+            <span className="editor__tab-icon">
+              <FileIcon />
+            </span>
+            <span className="editor__tab-name mono">notes.md</span>
+            <span className="editor__tab-close" aria-hidden="true">
+              <CloseIcon />
+            </span>
+          </Link>
           <div className="editor__tabs-spacer" />
         </div>
         <div className="editor__crumbs mono" role="navigation" aria-label="Breadcrumbs">

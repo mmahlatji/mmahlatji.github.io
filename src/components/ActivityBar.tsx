@@ -26,10 +26,10 @@ export default function ActivityBar({ explorerActive, onToggleExplorer }: Activi
           <span className="activitybar__label">Explorer</span>
         </button>
 
-        <a className="activitybar__item" href="/#contact" title="Contact">
+        <Link className="activitybar__item" to="/#contact" title="Contact">
           <MailIcon />
           <span className="activitybar__label">Contact</span>
-        </a>
+        </Link>
 
         <a
           className="activitybar__item"
@@ -42,10 +42,10 @@ export default function ActivityBar({ explorerActive, onToggleExplorer }: Activi
           <span className="activitybar__label">GitHub</span>
         </a>
 
-        <a className="activitybar__item" href="/#projects" title="Projects">
+        <Link className="activitybar__item" to="/#projects" title="Projects">
           <CubeIcon />
           <span className="activitybar__label">Projects</span>
-        </a>
+        </Link>
 
         <Link className="activitybar__item" to="/blog" title="Notes">
           <DocIcon />

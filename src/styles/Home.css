@@ -109,10 +109,6 @@
   margin-top: 1rem;
 }
 
-.hero__hint {
-  margin-top: 1rem;
-}
-
 /* ---------- buttons (VS Code primary / secondary) ---------- */
 .btn {
   display: inline-flex;

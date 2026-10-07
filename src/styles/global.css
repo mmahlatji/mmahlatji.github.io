@@ -107,9 +107,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: calc(var(--titlebar-h) + var(--tabs-h) + var(--crumbs-h));
   -webkit-text-size-adjust: 100%;
+  overflow-anchor: none;
 }
 
 body {
@@ -362,47 +362,6 @@ a.inline-link:hover {
   margin: 2.25rem 0;
 }
 
-/* ---------- the pulsing live dot (status) ---------- */
-.live {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: var(--fg-3);
-}
-.live__dot {
-  position: relative;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-.live__dot::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 1px solid var(--accent);
-  opacity: 0;
-  animation: live-pulse 2.2s var(--ease-out) infinite;
-}
-@keyframes live-pulse {
-  0% {
-    transform: scale(0.6);
-    opacity: 0.7;
-  }
-  70% {
-    transform: scale(1.5);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1.5);
-    opacity: 0;
-  }
-}
-
 /* ---------- editor caret ---------- */
 .caret {
   display: inline-block;
@@ -435,11 +394,8 @@ a.inline-link:hover {
   html {
     scroll-behavior: auto;
   }
-  .live__dot::after,
   .caret {
     animation: none;
-  }
-  .caret {
     opacity: 1;
   }
   *,

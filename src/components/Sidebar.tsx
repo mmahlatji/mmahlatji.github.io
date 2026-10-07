@@ -127,13 +127,6 @@ export default function Sidebar({
         </div>
       </div>
 
-      <div className="sidebar__foot">
-        <span className="live">
-          <span className="live__dot" />
-          simulating
-        </span>
-      </div>
-
       <button className="sidebar__close" onClick={onClose} aria-label="Close sidebar">
         ×
       </button>

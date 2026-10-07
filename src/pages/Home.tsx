@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import Section from '../components/Section';
 import ProjectCard from '../components/ProjectCard';
 import CodeBlock from '../components/CodeBlock';
@@ -138,19 +139,12 @@ export default function Home() {
           </details>
 
           <div className="hero__actions">
-            <a href="#projects" className="btn">
+            <Link to="/#projects" className="btn">
               See my work
-            </a>
-            <a href="#contact" className="btn btn--ghost">
+            </Link>
+            <Link to="/#contact" className="btn btn--ghost">
               Get in touch
-            </a>
-          </div>
-
-          <div className="hero__hint">
-            <span className="live">
-              <span className="live__dot" />
-              the demos below are running
-            </span>
+            </Link>
           </div>
         </div>
       </section>
@@ -235,8 +229,8 @@ export default function Home() {
         <div className="wrap">
           <h2 className="contact__title">
             <span className="md-mark mono" aria-hidden="true">## </span>
-            Let's make something{' '}
-            <span className="contact__accent">worth noticing.</span>
+            Im ready to build{' '}
+            <span className="contact__accent">are you ?</span>
           </h2>
           <p className="contact__sub">
             Have a project in mind, or just want to say hi? My inbox is open.

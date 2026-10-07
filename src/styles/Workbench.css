@@ -29,21 +29,35 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0 0.9rem;
-  background: var(--bg);
-  border-top: 1px solid var(--accent);
+  background: var(--panel);
   border-right: 1px solid var(--line);
   font-size: 0.82rem;
+  color: var(--fg-4);
+  transition: background 0.12s var(--ease);
+}
+.editor__tab:not(.is-active):hover {
+  background: var(--panel-2);
+}
+.editor__tab.is-active {
+  background: var(--bg);
+  border-top: 1px solid var(--accent);
 }
 
 .editor__tab-icon {
   display: grid;
   place-items: center;
+  color: var(--fg-4);
+}
+.editor__tab.is-active .editor__tab-icon {
   color: var(--accent-bright);
 }
 
 .editor__tab-name {
-  color: var(--fg);
+  color: var(--fg-3);
   font-size: 0.8rem;
+}
+.editor__tab.is-active .editor__tab-name {
+  color: var(--fg);
 }
 
 .editor__tab-close {
