@@ -22,8 +22,8 @@ export const projects: Project[] = [
     tags: ['Java', 'Swing', 'Fluid Sim', 'Physics'],
     link: 'https://github.com/mmahlatji/flip-water-simulator',
     demo: 'fluid',
-    file: 'flip-water.ts',
-    kind: 'ts',
+    file: 'FlipWaterSim.java',
+    kind: 'java',
   },
   {
     slug: 'ray-tracer',
@@ -33,8 +33,8 @@ export const projects: Project[] = [
     tags: ['Java', 'Swing', 'Ray Tracing', 'Graphics'],
     link: 'https://github.com/mmahlatji/2D-Raytracer',
     demo: 'rays',
-    file: 'ray-tracer.ts',
-    kind: 'ts',
+    file: 'RayTracer.java',
+    kind: 'java',
   },
   {
     slug: 'admit',
@@ -65,7 +65,7 @@ export const projects: Project[] = [
     tags: ['Java', 'HTTP', 'Sockets', 'Jackson', 'SLF4J'],
     link: 'https://github.com/mmahlatji/HTTP-Server',
     demo: 'server',
-    file: 'httpserver.java',
+    file: 'HttpServer.java',
     kind: 'java',
   },
   {

@@ -30,27 +30,14 @@
 .project__file svg {
   color: #3178c6;
 }
-
-.project__status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--tok-com);
+.project__file--java svg {
+  color: #b07219;
 }
-
-.project__status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--tok-com);
-  box-shadow: 0 0 6px rgba(106, 153, 85, 0.8);
+.project__file--py svg {
+  color: #3775a9;
 }
-
-.project__status.is-private {
-  color: var(--fg-4);
+.project__file--md svg {
+  color: #519aba;
 }
 
 .project__preview {

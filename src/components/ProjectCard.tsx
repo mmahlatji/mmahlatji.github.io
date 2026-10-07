@@ -13,7 +13,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
-  const { slug, title, description, tags, link, demo, file } = project;
+  const { slug, title, description, tags, link, demo, file, kind } = project;
 
   return (
     <article
@@ -21,19 +21,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       className="project"
     >
       <div className="project__head">
-        <span className="project__file mono">
+        <span className={`project__file project__file--${kind} mono`}>
           <FileIcon />
           {file}
-        </span>
-        <span className={`project__status mono${link ? '' : ' is-private'}`}>
-          {link ? (
-            <>
-              <span className="project__status-dot" aria-hidden="true" />
-              live
-            </>
-          ) : (
-            'private'
-          )}
         </span>
       </div>
 
@@ -47,9 +37,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           {demo === 'sentiment' && <SentimentDemo />}
           {demo === 'server' && <HttpServerDemo />}
           {demo === 'bench' && <BenchDemo />}
-          <span className="project__preview-label mono">
-            {demo === 'rays' ? 'drag the light — live' : 'preview · running'}
-          </span>
+          {demo === 'rays' && (
+            <span className="project__preview-label mono">drag the light</span>
+          )}
         </div>
       )}
 
