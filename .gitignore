@@ -9,4 +9,5 @@ pnpm-debug.log*
 .env
 .env.*
 DESIGN.md
-.impeccable/live/
+.impeccable/
+PRODUCT.md
