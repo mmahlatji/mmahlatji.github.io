@@ -11,3 +11,4 @@ pnpm-debug.log*
 DESIGN.md
 .impeccable/
 PRODUCT.md
+.github/hooks/impeccable.json
