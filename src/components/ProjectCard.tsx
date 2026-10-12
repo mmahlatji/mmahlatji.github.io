@@ -1,9 +1,8 @@
 import SimField from './SimField';
 import RayDemo from './RayDemo';
 import DataDemo from './DataDemo';
-import SentimentDemo from './SentimentDemo';
-import HttpServerDemo from './HttpServerDemo';
 import BenchDemo from './BenchDemo';
+import Seq2SeqDemo from './Seq2SeqDemo';
 import { FileIcon, ArrowUpRightIcon } from './icons';
 import type { Project } from '../data/projects';
 import '../styles/ProjectCard.css';
@@ -34,9 +33,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           )}
           {demo === 'rays' && <RayDemo className="project__canvas" />}
           {demo === 'data' && <DataDemo className="project__canvas" />}
-          {demo === 'sentiment' && <SentimentDemo />}
-          {demo === 'server' && <HttpServerDemo />}
           {demo === 'bench' && <BenchDemo />}
+          {demo === 'seq2seq' && <Seq2SeqDemo className="project__canvas" />}
           {demo === 'rays' && (
             <span className="project__preview-label mono">drag the light</span>
           )}

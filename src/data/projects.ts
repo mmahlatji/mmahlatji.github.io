@@ -6,7 +6,7 @@ export interface Project {
   description: string;
   tags: string[];
   link?: string;
-  demo?: 'fluid' | 'rays' | 'data' | 'sentiment' | 'server' | 'bench';
+  demo?: 'fluid' | 'rays' | 'data' | 'bench' | 'seq2seq';
   /** display filename shown in the sidebar tree and editor chrome */
   file: string;
   /** file type for icon coloring + language label */
@@ -47,26 +47,14 @@ export const projects: Project[] = [
     kind: 'ts',
   },
   {
-    slug: 'sentiment',
-    title: 'Headline Sentiment Analyzer',
+    slug: 'g2p-seq2seq',
+    title: 'Grapheme-to-Phoneme Seq2Seq',
     description:
-      'A pipeline that scrapes market headlines from Yahoo Finance, scores them with FinBERT, and correlates the sentiment against daily open→close moves. Built with Selenium, BeautifulSoup, and Transformers.',
-    tags: ['Python', 'FinBERT', 'Transformers', 'Selenium', 'pandas'],
-    link: 'https://github.com/mmahlatji/HeadlineAnalyzer',
-    demo: 'sentiment',
-    file: 'sentiment.py',
+      'A grapheme-to-phoneme sequence-to-sequence model built from scratch in PyTorch. Implements LSTM cells, an encoder–decoder with context injection, and an attention mechanism, then compares the architectures on the CMU Pronouncing Dictionary.',
+    tags: ['PyTorch', 'LSTM', 'Attention', 'Seq2Seq', 'NLP'],
+    demo: 'seq2seq',
+    file: 'Seq2Seq.py',
     kind: 'py',
-  },
-  {
-    slug: 'http-server',
-    title: 'Simple Java HTTP Server',
-    description:
-      'A minimal HTTP/1.1 server written from scratch in Java. Parses request lines, accepts connections on a ServerSocket, and responds over worker threads — built with Jackson for config and SLF4J for logging.',
-    tags: ['Java', 'HTTP', 'Sockets', 'Jackson', 'SLF4J'],
-    link: 'https://github.com/mmahlatji/HTTP-Server',
-    demo: 'server',
-    file: 'HttpServer.java',
-    kind: 'java',
   },
   {
     slug: 'manybench',
